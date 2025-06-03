@@ -1,13 +1,13 @@
 # Jeux de la Complicité
 
 ## But du projet
-Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Deux équipes s’affrontent en essayant de deviner un mot le plus rapidement possible. Chaque mot trouvé rapporte un point à l’équipe active et le chronomètre indique le temps mis.
+Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Deux équipes s’affrontent en essayant de deviner un mot le plus rapidement possible. Un chronomètre comptabilise le temps de chaque manche et des boutons permettent d’attribuer un point à l’équipe qui trouve le mot, qu’elle soit ou non l’équipe active. L’équipe active change automatiquement après chaque manche.
 
 ## Règles du jeu
-1. Au début d’une manche, cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et lancer le minuteur.
-2. L’équipe active tente de faire deviner le mot à ses coéquipiers sans le prononcer directement.
-3. Quand le mot est trouvé, cliquez sur **Mot trouvé** pour ajouter un point à cette équipe et passer la main à l’équipe suivante.
-4. La manche se termine quand le mot est deviné et le temps réalisé reste affiché.
+1. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0.
+2. L’équipe active tente de faire deviner le mot à ses coéquipiers sans le prononcer.
+3. Lorsque le mot est trouvé, appuyez sur **Équipe 1 a trouvé** ou **Équipe 2 a trouvé**. Le chronomètre s’arrête et le point est attribué à l’équipe correspondante.
+4. L’équipe active change alors pour la manche suivante, même si l’autre équipe a marqué. Le temps réalisé reste affiché jusqu’à la prochaine manche.
 
 ## Ouvrir l’application
 Aucune installation n’est nécessaire. Pour jouer :

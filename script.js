@@ -43,24 +43,26 @@ function startRound() {
     timeLeft = duration;
     document.getElementById('timer').textContent = timeLeft;
 
-    document.getElementById('correct').disabled = false;
+    document.getElementById('team1-found').disabled = false;
+    document.getElementById('team2-found').disabled = false;
     document.getElementById('start').disabled = true;
 
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById('timer').textContent = timeLeft;
         if (timeLeft <= 0) {
-            endRound(false);
+            endRound(null);
         }
     }, 1000);
 }
 
-function endRound(correct) {
+function endRound(winnerTeam) {
     clearInterval(timer);
-    document.getElementById('correct').disabled = true;
+    document.getElementById('team1-found').disabled = true;
+    document.getElementById('team2-found').disabled = true;
     document.getElementById('start').disabled = false;
-    if (correct) {
-        const scoreId = 'score' + activeTeam;
+    if (winnerTeam === 1 || winnerTeam === 2) {
+        const scoreId = 'score' + winnerTeam;
         const current = parseInt(document.getElementById(scoreId).textContent, 10);
         document.getElementById(scoreId).textContent = current + 1;
     }
@@ -75,7 +77,8 @@ function endRound(correct) {
 // event listeners
 
 document.getElementById('start').addEventListener('click', startRound);
-document.getElementById('correct').addEventListener('click', () => endRound(true));
+document.getElementById('team1-found').addEventListener('click', () => endRound(1));
+document.getElementById('team2-found').addEventListener('click', () => endRound(2));
 
 updateActiveTeam();
 loadSettings();

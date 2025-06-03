@@ -8,17 +8,11 @@ let timer;
 let elapsedSeconds = 0;
 
 function loadSettings() {
-    const savedDuration = localStorage.getItem('duration');
-    if (savedDuration !== null) {
-        document.getElementById('round-duration').value = savedDuration;
-        document.getElementById('timer').textContent = savedDuration;
-    } else {
-        document.getElementById('timer').textContent = document.getElementById('round-duration').value;
-    }
     const savedWords = localStorage.getItem('customWords');
     if (savedWords !== null) {
         document.getElementById('custom-words').value = savedWords;
     }
+    document.getElementById('timer').textContent = 0;
 }
 
 function updateActiveTeam() {
@@ -32,10 +26,8 @@ function updateActiveTeam() {
 }
 
 function startRound() {
-    const duration = parseInt(document.getElementById('round-duration').value, 10) || 60;
     const customInput = document.getElementById('custom-words').value;
 
-    localStorage.setItem('duration', duration);
     localStorage.setItem('customWords', customInput);
 
     const customWords = customInput.split(',').map(w => w.trim()).filter(w => w);

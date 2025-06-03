@@ -24,6 +24,11 @@ function loadSettings() {
 function updateActiveTeam() {
     const name = activeTeam === 1 ? 'Équipe 1' : 'Équipe 2';
     document.getElementById('activeName').textContent = name;
+
+    const team1 = document.getElementById('team1');
+    const team2 = document.getElementById('team2');
+    team1.classList.toggle('active-team', activeTeam === 1);
+    team2.classList.toggle('active-team', activeTeam === 2);
 }
 
 function startRound() {

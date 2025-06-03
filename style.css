@@ -41,6 +41,11 @@ body {
     border-radius: 8px;
 }
 
+/* highlighted team */
+.active-team {
+    border: 3px solid var(--accent);
+}
+
 .score {
     font-size: 2.2em;
     display: block;

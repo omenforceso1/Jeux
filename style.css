@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+}
+
+#scoreboard {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.team {
+    border: 1px solid #333;
+    padding: 10px;
+    width: 100px;
+}
+
+.score {
+    font-size: 2em;
+    display: block;
+}
+
+#active-team {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#word-display {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+#timer {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 5px;
+}

@@ -22,6 +22,7 @@ function startRound() {
     document.getElementById('timer').textContent = timeLeft;
 
     document.getElementById('correct').disabled = false;
+    document.getElementById('start').disabled = true;
 
     timer = setInterval(() => {
         timeLeft--;
@@ -35,6 +36,7 @@ function startRound() {
 function endRound(correct) {
     clearInterval(timer);
     document.getElementById('correct').disabled = true;
+    document.getElementById('start').disabled = false;
     if (correct) {
         const scoreId = 'score' + activeTeam;
         const current = parseInt(document.getElementById(scoreId).textContent, 10);

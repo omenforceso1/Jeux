@@ -5,16 +5,15 @@ const defaultWords = [
 
 let activeTeam = 1;
 let timer;
-let timeLeft = 60;
+let elapsedSeconds = 0;
 
 function loadSettings() {
     const savedDuration = localStorage.getItem('duration');
     if (savedDuration !== null) {
         document.getElementById('round-duration').value = savedDuration;
         document.getElementById('timer').textContent = savedDuration;
-        timeLeft = parseInt(savedDuration, 10);
     } else {
-        document.getElementById('timer').textContent = timeLeft;
+        document.getElementById('timer').textContent = document.getElementById('round-duration').value;
     }
     const savedWords = localStorage.getItem('customWords');
     if (savedWords !== null) {
@@ -40,19 +39,16 @@ function startRound() {
     const word = availableWords[Math.floor(Math.random() * availableWords.length)];
     document.getElementById('word-display').textContent = word;
 
-    timeLeft = duration;
-    document.getElementById('timer').textContent = timeLeft;
+    elapsedSeconds = 0;
+    document.getElementById('timer').textContent = elapsedSeconds;
 
     document.getElementById('team1-found').disabled = false;
     document.getElementById('team2-found').disabled = false;
     document.getElementById('start').disabled = true;
 
     timer = setInterval(() => {
-        timeLeft--;
-        document.getElementById('timer').textContent = timeLeft;
-        if (timeLeft <= 0) {
-            endRound(null);
-        }
+        elapsedSeconds++;
+        document.getElementById('timer').textContent = elapsedSeconds;
     }, 1000);
 }
 
@@ -71,7 +67,7 @@ function endRound(winnerTeam) {
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeam();
     document.getElementById('word-display').textContent = 'Appuyez sur "Nouvelle manche"';
-    document.getElementById('timer').textContent = document.getElementById('round-duration').value;
+    document.getElementById('timer').textContent = elapsedSeconds;
 }
 
 // event listeners

@@ -41,3 +41,34 @@ button {
     font-size: 1em;
     margin: 5px;
 }
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 400px) {
+    body {
+        margin: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .score {
+        font-size: 1.5em;
+    }
+
+    #word-display {
+        font-size: 1.5em;
+        margin: 15px 0;
+    }
+
+    #timer {
+        font-size: 1.2em;
+        margin: 8px 0;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+        margin: 3px;
+    }
+}

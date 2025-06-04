@@ -37,6 +37,14 @@ body {
 .config-team h3 {
     margin: 0 0 5px;
 }
+
+#setup {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
 .config-team ul {
     list-style: none;
     padding: 0;

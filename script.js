@@ -233,6 +233,7 @@ document.getElementById('word-found').addEventListener('click', endRound);
 document.getElementById('reset-scores').addEventListener('click', resetScores);
 
 document.getElementById('menu-btn').addEventListener('click', () => {
+    clearInterval(timer);
     if (teams.length) {
         history.push({ date: new Date().toISOString(), teams: JSON.parse(JSON.stringify(teams)) });
     }

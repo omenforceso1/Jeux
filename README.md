@@ -1,7 +1,7 @@
 # Jeux de la Complicité
 
 ## But du projet
-Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Deux équipes s’affrontent en essayant de deviner un mot le plus rapidement possible. Un chronomètre comptabilise le temps de chaque manche et des boutons permettent d’attribuer un point à l’équipe qui trouve le mot, qu’elle soit ou non l’équipe active. L’équipe active change automatiquement après chaque manche.
+Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Deux équipes s’affrontent en essayant de deviner un mot le plus rapidement possible. Un chronomètre affiche le temps écoulé pour chaque manche et des boutons permettent d’ajouter un point à l’équipe ayant trouvé le mot, qu’elle soit ou non l’équipe active. Cette dernière change automatiquement à la fin de la manche et reste indiquée visuellement sur le tableau de score.
 
 ## Règles du jeu
 1. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0.
@@ -20,3 +20,8 @@ Le jeu s’affiche alors directement dans le navigateur et peut être utilisé h
 - **index.html** : structure de la page et des éléments du jeu (scores, boutons, etc.).
 - **style.css** : mise en forme de l’interface (positionnement, couleurs et typographie).
 - **script.js** : logique du jeu : tirage des mots aléatoires, gestion du minuteur, des scores et de l’équipe active.
+
+## Commandes et interface
+- **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active les boutons de résolution.
+- **Équipe 1 a trouvé** / **Équipe 2 a trouvé** : arrêtent le chronomètre et ajoutent un point à l’équipe correspondante.
+- L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.

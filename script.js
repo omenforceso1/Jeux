@@ -4,6 +4,8 @@ const defaultWords = [
 ];
 
 let teams = [];
+let players = {};
+let history = [];
 let activeTeamIndex = 0;
 let timer;
 let elapsedSeconds = 0;
@@ -13,6 +15,14 @@ function loadState() {
     if (data) {
         teams = JSON.parse(data);
     }
+    const pData = localStorage.getItem('players');
+    if (pData) {
+        players = JSON.parse(pData);
+    }
+    const hData = localStorage.getItem('history');
+    if (hData) {
+        history = JSON.parse(hData);
+    }
     const active = parseInt(localStorage.getItem('activeTeamIndex'), 10);
     if (!isNaN(active)) {
         activeTeamIndex = active;
@@ -21,6 +31,8 @@ function loadState() {
 
 function saveState() {
     localStorage.setItem('teams', JSON.stringify(teams));
+    localStorage.setItem('players', JSON.stringify(players));
+    localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('activeTeamIndex', activeTeamIndex);
 }
 
@@ -46,9 +58,17 @@ function renderConfig() {
         const addPlayer = document.createElement('button');
         addPlayer.textContent = 'Ajouter un joueur';
         addPlayer.addEventListener('click', () => {
-            const name = prompt('Prénom du joueur :');
+            const existing = Object.keys(players).join(', ');
+            const promptText = existing ? `Prénom du joueur (existants: ${existing}) :` : 'Prénom du joueur :';
+            const name = prompt(promptText);
             if (name) {
+                if (!players[name]) {
+                    players[name] = { name, totalScore: 0, gamesPlayed: 0 };
+                }
                 team.players.push({ name, score: 0 });
+                if (team.players.length === 1) {
+                    team.name = name;
+                }
                 renderConfig();
                 saveState();
             }
@@ -140,6 +160,9 @@ function endRound() {
     if (team && team.players[pIdx]) {
         team.players[pIdx].score = (team.players[pIdx].score || 0) + 1;
         team.score = (team.score || 0) + 1;
+        if (players[team.players[pIdx].name]) {
+            players[team.players[pIdx].name].totalScore = (players[team.players[pIdx].name].totalScore || 0) + 1;
+        }
     }
 
     activeTeamIndex = (activeTeamIndex + 1) % teams.length;
@@ -166,18 +189,26 @@ function resetScores() {
 
 // configuration events
 
-document.getElementById('add-team').addEventListener('click', () => {
-    const name = prompt("Nom de l'équipe :");
-    if (name) {
-        teams.push({ name, score: 0, players: [] });
-        renderConfig();
-        saveState();
-    }
+
+document.getElementById('generate-teams').addEventListener('click', () => {
+    const count = parseInt(document.getElementById('team-count').value, 10);
+    if (isNaN(count) || count < 1) return;
+    teams = Array.from({ length: count }, (_, i) => ({ name: `Équipe ${i + 1}`, score: 0, players: [] }));
+    renderConfig();
+    saveState();
 });
 
 document.getElementById('start-game').addEventListener('click', () => {
     document.getElementById('config-container').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
+    teams.forEach(team => {
+        team.players.forEach(p => {
+            if (players[p.name]) {
+                players[p.name].gamesPlayed = (players[p.name].gamesPlayed || 0) + 1;
+            }
+        });
+    });
+    saveState();
     renderScoreboard();
     updatePlayerSelect();
 });
@@ -187,6 +218,18 @@ document.getElementById('start').addEventListener('click', startRound);
 document.getElementById('word-found').addEventListener('click', endRound);
 
 document.getElementById('reset-scores').addEventListener('click', resetScores);
+
+document.getElementById('new-game').addEventListener('click', () => {
+    if (teams.length) {
+        history.push({ date: new Date().toISOString(), teams: JSON.parse(JSON.stringify(teams)) });
+    }
+    teams = [];
+    activeTeamIndex = 0;
+    saveState();
+    renderConfig();
+    document.getElementById('game-container').style.display = 'none';
+    document.getElementById('config-container').style.display = 'block';
+});
 
 loadState();
 renderConfig();

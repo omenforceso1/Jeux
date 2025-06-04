@@ -10,8 +10,12 @@
 <body>
     <div id="config-container" class="container">
         <h1>Configuration de la partie</h1>
+        <div id="setup">
+            <label for="team-count">Nombre d'équipes :</label>
+            <input type="number" id="team-count" min="2" value="2">
+            <button id="generate-teams">Créer les équipes</button>
+        </div>
         <div id="teams-config"></div>
-        <button id="add-team">Ajouter une équipe</button>
         <button id="start-game" disabled>Commencer la partie</button>
     </div>
 
@@ -31,6 +35,7 @@
             <select id="player-select"></select>
             <button id="word-found" disabled>Mot trouvé</button>
             <button id="reset-scores">Réinitialiser les scores</button>
+            <button id="new-game">Nouvelle partie</button>
         </div>
     </div>
     <script src="script.js"></script>

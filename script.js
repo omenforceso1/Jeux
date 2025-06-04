@@ -219,7 +219,7 @@ document.getElementById('word-found').addEventListener('click', endRound);
 
 document.getElementById('reset-scores').addEventListener('click', resetScores);
 
-document.getElementById('new-game').addEventListener('click', () => {
+document.getElementById('menu-btn').addEventListener('click', () => {
     if (teams.length) {
         history.push({ date: new Date().toISOString(), teams: JSON.parse(JSON.stringify(teams)) });
     }

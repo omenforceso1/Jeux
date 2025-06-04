@@ -23,6 +23,8 @@ function updateActiveTeam() {
     const team2 = document.getElementById('team2');
     team1.classList.toggle('active-team', activeTeam === 1);
     team2.classList.toggle('active-team', activeTeam === 2);
+    team1.classList.toggle('pulse', activeTeam === 1);
+    team2.classList.toggle('pulse', activeTeam === 2);
 }
 
 function startRound() {

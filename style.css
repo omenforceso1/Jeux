@@ -4,10 +4,11 @@
     --accent: #e76f51;
     --bg-start: #f1faee;
     --bg-end: #a8dadc;
+    --accent-light: #f4a261;
 }
 
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Roboto", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     text-align: center;
     background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
@@ -35,10 +36,11 @@ body {
 
 .team {
     flex: 1;
-    background: var(--secondary);
+    background: linear-gradient(to bottom, var(--secondary), #1e3645);
     color: #fff;
     padding: 15px 10px;
     border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* highlighted team */
@@ -64,10 +66,18 @@ body {
     font-weight: bold;
 }
 
+#settings {
+    margin-bottom: 15px;
+}
+
 #timer {
     font-size: 2em;
     margin: 10px 0;
     color: var(--accent);
+    padding: 8px 12px;
+    border: 2px solid var(--accent-light);
+    border-radius: 8px;
+    display: inline-block;
 }
 
 button {
@@ -76,9 +86,10 @@ button {
     margin: 5px;
     border: none;
     border-radius: 6px;
-    background: var(--primary);
+    background: linear-gradient(to bottom, var(--primary), #237f74);
     color: #fff;
     cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: background 0.3s ease;
 }
 
@@ -89,18 +100,19 @@ button:disabled {
 
 button:hover:not(:disabled) {
     background: var(--accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 input[type="number"],
 input[type="text"] {
-    padding: 5px 10px;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
     margin-top: 5px;
 }
 
 /* Ajustements pour les petits écrans */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
     body {
         margin: 10px;
     }
@@ -121,11 +133,23 @@ input[type="text"] {
     #timer {
         font-size: 1.2em;
         margin: 8px 0;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+    #scoreboard {
+        flex-direction: column;
+    }
+
+    #controls {
+        display: flex;
+        flex-direction: column;
     }
 
     button {
         padding: 8px 15px;
         font-size: 0.9em;
-        margin: 3px;
+        margin: 3px 0;
+        width: 100%;
     }
 }

@@ -90,6 +90,12 @@ h1 {
     margin-bottom: 15px;
 }
 
+#controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 #timer {
     font-size: 2em;
     margin: 10px 0;

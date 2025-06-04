@@ -25,3 +25,4 @@ Le jeu s’affiche alors directement dans le navigateur et peut être utilisé h
 - **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active les boutons de résolution.
 - **Équipe 1 a trouvé** / **Équipe 2 a trouvé** : arrêtent le chronomètre et ajoutent un point à l’équipe correspondante.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
+- **Réinitialiser les scores** : remet les scores à zéro. Les scores et l’équipe active sont sauvegardés entre les sessions.

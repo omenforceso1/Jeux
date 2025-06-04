@@ -9,6 +9,7 @@ let history = [];
 let activeTeamIndex = 0;
 let timer;
 let elapsedSeconds = 0;
+let currentWord = '';
 
 function loadState() {
     const data = localStorage.getItem('teams');
@@ -127,12 +128,14 @@ function updateActiveTeam() {
 }
 
 function startRound() {
-    const word = defaultWords[Math.floor(Math.random() * defaultWords.length)];
+    currentWord = defaultWords[Math.floor(Math.random() * defaultWords.length)];
     const wordDisplay = document.getElementById('word-display');
-    wordDisplay.textContent = word;
+    wordDisplay.textContent = currentWord;
+    wordDisplay.classList.add('hidden');
     wordDisplay.classList.remove('flash');
     void wordDisplay.offsetWidth;
     wordDisplay.classList.add('flash');
+    document.getElementById('toggle-word').style.display = 'block';
 
     elapsedSeconds = 0;
     document.getElementById('timer').textContent = elapsedSeconds;
@@ -170,7 +173,23 @@ function endRound() {
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
     wordDisplay.classList.remove('flash');
+    wordDisplay.classList.remove('hidden');
+    document.getElementById('toggle-word').style.display = 'none';
     document.getElementById('timer').textContent = elapsedSeconds;
+}
+
+function resetGameUI() {
+    clearInterval(timer);
+    elapsedSeconds = 0;
+    document.getElementById('timer').textContent = elapsedSeconds;
+    currentWord = '';
+    const wordDisplay = document.getElementById('word-display');
+    wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
+    wordDisplay.classList.remove('flash');
+    wordDisplay.classList.remove('hidden');
+    document.getElementById('toggle-word').style.display = 'none';
+    document.getElementById('word-found').disabled = true;
+    document.getElementById('start').disabled = false;
 }
 
 function resetScores() {
@@ -214,6 +233,7 @@ document.getElementById('start-game').addEventListener('click', () => {
     });
     document.getElementById('config-container').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
+    resetGameUI();
     teams.forEach(team => {
         team.players.forEach(p => {
             if (players[p.name]) {
@@ -228,12 +248,15 @@ document.getElementById('start-game').addEventListener('click', () => {
 
 document.getElementById('start').addEventListener('click', startRound);
 
+document.getElementById('toggle-word').addEventListener('click', () => {
+    document.getElementById('word-display').classList.toggle('hidden');
+});
+
 document.getElementById('word-found').addEventListener('click', endRound);
 
 document.getElementById('reset-scores').addEventListener('click', resetScores);
 
 document.getElementById('menu-btn').addEventListener('click', () => {
-    clearInterval(timer);
     if (teams.length) {
         history.push({ date: new Date().toISOString(), teams: JSON.parse(JSON.stringify(teams)) });
     }
@@ -241,11 +264,14 @@ document.getElementById('menu-btn').addEventListener('click', () => {
     activeTeamIndex = 0;
     saveState();
     renderConfig();
+    resetGameUI();
     document.getElementById('game-container').style.display = 'none';
     document.getElementById('config-container').style.display = 'block';
 });
 
 loadState();
 renderConfig();
+
+resetGameUI();
 
 document.getElementById('game-container').style.display = 'none';

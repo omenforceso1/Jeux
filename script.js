@@ -34,7 +34,12 @@ function startRound() {
     const availableWords = defaultWords.concat(customWords);
 
     const word = availableWords[Math.floor(Math.random() * availableWords.length)];
-    document.getElementById('word-display').textContent = word;
+    const wordDisplay = document.getElementById('word-display');
+    wordDisplay.textContent = word;
+    wordDisplay.classList.remove('flash');
+    // restart animation
+    void wordDisplay.offsetWidth;
+    wordDisplay.classList.add('flash');
 
     elapsedSeconds = 0;
     document.getElementById('timer').textContent = elapsedSeconds;
@@ -55,15 +60,21 @@ function endRound(winnerTeam) {
     document.getElementById('team2-found').disabled = true;
     document.getElementById('start').disabled = false;
     if (winnerTeam === 1 || winnerTeam === 2) {
-        const scoreId = 'score' + winnerTeam;
-        const current = parseInt(document.getElementById(scoreId).textContent, 10);
-        document.getElementById(scoreId).textContent = current + 1;
+        const scoreEl = document.getElementById('score' + winnerTeam);
+        const current = parseInt(scoreEl.textContent, 10);
+        scoreEl.textContent = current + 1;
+        scoreEl.classList.remove('score-pop');
+        // restart animation
+        void scoreEl.offsetWidth;
+        scoreEl.classList.add('score-pop');
     }
 
     // switch active team
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeam();
-    document.getElementById('word-display').textContent = 'Appuyez sur "Nouvelle manche"';
+    const wordDisplay = document.getElementById('word-display');
+    wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
+    wordDisplay.classList.remove('flash');
     document.getElementById('timer').textContent = elapsedSeconds;
 }
 

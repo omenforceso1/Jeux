@@ -39,6 +39,16 @@ function saveState() {
 function renderConfig() {
     const container = document.getElementById('teams-config');
     container.innerHTML = '';
+
+    const datalist = document.createElement('datalist');
+    datalist.id = 'players-datalist';
+    Object.keys(players).forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        datalist.appendChild(option);
+    });
+    container.appendChild(datalist);
+
     teams.forEach((team, tIdx) => {
         const div = document.createElement('div');
         div.className = 'config-team';
@@ -47,33 +57,20 @@ function renderConfig() {
         title.textContent = team.name;
         div.appendChild(title);
 
-        const ul = document.createElement('ul');
-        team.players.forEach(p => {
-            const li = document.createElement('li');
-            li.textContent = p.name;
-            ul.appendChild(li);
-        });
-        div.appendChild(ul);
-
-        const addPlayer = document.createElement('button');
-        addPlayer.textContent = 'Ajouter un joueur';
-        addPlayer.addEventListener('click', () => {
-            const existing = Object.keys(players).join(', ');
-            const promptText = existing ? `Prénom du joueur (existants: ${existing}) :` : 'Prénom du joueur :';
-            const name = prompt(promptText);
-            if (name) {
-                if (!players[name]) {
-                    players[name] = { name, totalScore: 0, gamesPlayed: 0 };
-                }
-                team.players.push({ name, score: 0 });
-                if (team.players.length === 1) {
-                    team.name = name;
-                }
-                renderConfig();
-                saveState();
+        for (let i = 0; i < 2; i++) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.setAttribute('list', 'players-datalist');
+            input.placeholder = `Joueur ${i + 1}`;
+            input.className = 'player-input';
+            input.dataset.teamIndex = tIdx;
+            input.dataset.playerIndex = i;
+            if (team.players[i]) {
+                input.value = team.players[i].name;
             }
-        });
-        div.appendChild(addPlayer);
+            div.appendChild(input);
+        }
+
         container.appendChild(div);
     });
     document.getElementById('start-game').disabled = teams.length === 0;
@@ -199,6 +196,22 @@ document.getElementById('generate-teams').addEventListener('click', () => {
 });
 
 document.getElementById('start-game').addEventListener('click', () => {
+    teams.forEach((team, tIdx) => {
+        team.players = [];
+        const inputs = document.querySelectorAll(`.player-input[data-team-index="${tIdx}"]`);
+        inputs.forEach((input, idx) => {
+            const name = input.value.trim();
+            if (name) {
+                if (!players[name]) {
+                    players[name] = { name, totalScore: 0, gamesPlayed: 0 };
+                }
+                team.players.push({ name, score: 0 });
+            }
+        });
+        if (team.players[0]) {
+            team.name = team.players[0].name;
+        }
+    });
     document.getElementById('config-container').style.display = 'none';
     document.getElementById('game-container').style.display = 'block';
     teams.forEach(team => {

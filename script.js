@@ -12,7 +12,16 @@ function loadSettings() {
     if (savedWords !== null) {
         document.getElementById('custom-words').value = savedWords;
     }
+    const s1 = parseInt(localStorage.getItem('score1'), 10);
+    const s2 = parseInt(localStorage.getItem('score2'), 10);
+    if (!isNaN(s1)) document.getElementById('score1').textContent = s1;
+    if (!isNaN(s2)) document.getElementById('score2').textContent = s2;
+    const savedTeam = parseInt(localStorage.getItem('activeTeam'), 10);
+    if (savedTeam === 1 || savedTeam === 2) {
+        activeTeam = savedTeam;
+    }
     document.getElementById('timer').textContent = 0;
+    updateActiveTeam();
 }
 
 function updateActiveTeam() {
@@ -23,6 +32,20 @@ function updateActiveTeam() {
     const team2 = document.getElementById('team2');
     team1.classList.toggle('active-team', activeTeam === 1);
     team2.classList.toggle('active-team', activeTeam === 2);
+}
+
+function saveGameState() {
+    localStorage.setItem('score1', document.getElementById('score1').textContent);
+    localStorage.setItem('score2', document.getElementById('score2').textContent);
+    localStorage.setItem('activeTeam', activeTeam);
+}
+
+function resetScores() {
+    document.getElementById('score1').textContent = 0;
+    document.getElementById('score2').textContent = 0;
+    activeTeam = 1;
+    updateActiveTeam();
+    saveGameState();
 }
 
 function startRound() {
@@ -68,6 +91,7 @@ function endRound(winnerTeam) {
     // switch active team
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeam();
+    saveGameState();
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
     wordDisplay.classList.remove('flash');
@@ -79,6 +103,7 @@ function endRound(winnerTeam) {
 document.getElementById('start').addEventListener('click', startRound);
 document.getElementById('team1-found').addEventListener('click', () => endRound(1));
 document.getElementById('team2-found').addEventListener('click', () => endRound(2));
+document.getElementById('reset-scores').addEventListener('click', resetScores);
 
 updateActiveTeam();
 loadSettings();

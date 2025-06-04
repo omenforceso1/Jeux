@@ -5,6 +5,8 @@
     --bg-start: #f8fafc;
     --bg-end: #e0f2fe;
     --accent-light: #fed7aa;
+    --container-bg1: #ffffff;
+    --container-bg2: #f1f5f9;
 }
 
 body {
@@ -19,16 +21,24 @@ body {
 }
 
 .container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom right, var(--container-bg1), var(--container-bg2));
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 100%;
 }
 
+h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
 #scoreboard {
     display: flex;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+    border-radius: 12px;
     justify-content: space-between;
     margin-bottom: 20px;
     gap: 10px;
@@ -36,19 +46,24 @@ body {
 
 .team {
     flex: 1;
-    background: linear-gradient(to bottom, var(--secondary), #111827);
+    background: linear-gradient(to bottom right, var(--secondary), #0f172a);
     color: #fff;
-    padding: 15px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    padding: 20px 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.team .name {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
 
 /* highlighted team */
 .active-team {
     border: 3px solid var(--accent);
     transform: scale(1.05);
-    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px var(--accent);
 }
 
 .score {
@@ -66,6 +81,8 @@ body {
 #word-display {
     font-size: 2em;
     margin: 20px 0;
+    color: var(--primary);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
     font-weight: bold;
 }
 
@@ -78,22 +95,21 @@ body {
     margin: 10px 0;
     color: var(--accent);
     padding: 8px 12px;
+    background: #fff;
     border: 2px solid var(--accent-light);
     border-radius: 8px;
     display: inline-block;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 12px 24px;
     margin: 5px;
     border: none;
     border-radius: 6px;
     background: linear-gradient(to bottom, var(--primary), #4338ca);
     color: #fff;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 button:disabled {
@@ -103,7 +119,7 @@ button:disabled {
 
 button:hover:not(:disabled) {
     background: var(--accent);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 

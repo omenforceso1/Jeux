@@ -191,7 +191,7 @@ function resetScores() {
 
 
 document.getElementById('generate-teams').addEventListener('click', () => {
-    const count = parseInt(document.getElementById('team-count').value, 10);
+    const count = parseInt(document.querySelector('#team-count').value, 10);
     if (isNaN(count) || count < 1) return;
     teams = Array.from({ length: count }, (_, i) => ({ name: `Équipe ${i + 1}`, score: 0, players: [] }));
     renderConfig();

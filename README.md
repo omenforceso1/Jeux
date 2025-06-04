@@ -1,13 +1,14 @@
 # Jeux de la Complicité
 
 ## But du projet
-Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Deux équipes s’affrontent en essayant de deviner un mot le plus rapidement possible. Un chronomètre affiche le temps écoulé pour chaque manche et des boutons permettent d’ajouter un point à l’équipe ayant trouvé le mot, qu’elle soit ou non l’équipe active. Cette dernière change automatiquement à la fin de la manche et reste indiquée visuellement sur le tableau de score.
+Ce dépôt contient une petite application web permettant de jouer au *Jeu de la Complicité*. Plusieurs équipes peuvent être créées ainsi que des joueurs qui leur sont associés. Un chronomètre affiche le temps écoulé pour chaque manche et un point est attribué au joueur ayant trouvé le mot, ce qui incrémente automatiquement le score de son équipe. L’équipe active change automatiquement à la fin de la manche et reste indiquée visuellement sur le tableau de score.
 
 ## Règles du jeu
-1. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0.
-2. L’équipe active tente de faire deviner le mot à ses coéquipiers sans le prononcer.
-3. Lorsque le mot est trouvé, appuyez sur **Équipe 1 a trouvé** ou **Équipe 2 a trouvé**. Le chronomètre s’arrête et le point est attribué à l’équipe correspondante.
-4. L’équipe active change alors pour la manche suivante, même si l’autre équipe a marqué. Le temps réalisé reste affiché jusqu’à la prochaine manche.
+1. Sur l’écran de configuration, ajoutez les équipes puis les joueurs qui les composent, puis lancez la partie.
+2. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0.
+3. L’équipe active tente de faire deviner le mot à ses coéquipiers sans le prononcer.
+4. Quand le mot est trouvé, sélectionnez le joueur gagnant dans la liste puis cliquez sur **Mot trouvé**. Le joueur et son équipe gagnent un point et le chronomètre s’arrête.
+5. L’équipe active change alors pour la manche suivante. Le temps réalisé reste affiché jusqu’à la prochaine manche.
 
 ## Ouvrir l’application
 Aucune installation n’est nécessaire. Pour jouer :
@@ -22,7 +23,9 @@ Le jeu s’affiche alors directement dans le navigateur et peut être utilisé h
 - **script.js** : logique du jeu : tirage des mots aléatoires, gestion du minuteur, des scores et de l’équipe active.
 
 ## Commandes et interface
-- **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active les boutons de résolution.
-- **Équipe 1 a trouvé** / **Équipe 2 a trouvé** : arrêtent le chronomètre et ajoutent un point à l’équipe correspondante.
+- **Ajouter une équipe** / **Ajouter un joueur** : permettent de préparer la partie sur l’écran de configuration.
+- **Commencer la partie** : passe à l’écran de jeu avec le tableau des scores.
+- **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active le bouton de validation.
+- **Mot trouvé** : après avoir sélectionné le joueur gagnant, arrête le chronomètre et ajoute un point au joueur et à son équipe.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
-- **Réinitialiser les scores** : remet les scores à zéro. Les scores et l’équipe active sont sauvegardés entre les sessions.
+- **Réinitialiser les scores** : remet les scores de tous les joueurs et équipes à zéro.

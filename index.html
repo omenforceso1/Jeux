@@ -8,39 +8,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-    <h1>Jeu de la Complicité</h1>
+    <div id="config-container" class="container">
+        <h1>Configuration de la partie</h1>
+        <div id="teams-config"></div>
+        <button id="add-team">Ajouter une équipe</button>
+        <button id="start-game" disabled>Commencer la partie</button>
+    </div>
 
-    <div id="scoreboard">
-        <div class="team" id="team1">
-            <span class="name">Équipe 1</span>
-            <span class="score" id="score1">0</span>
+    <div id="game-container" class="container">
+        <h1>Jeu de la Complicité</h1>
+
+        <div id="scoreboard"></div>
+
+        <div id="active-team">Équipe active : <span id="activeName"></span></div>
+
+        <div id="word-display">Appuyez sur "Nouvelle manche"</div>
+
+        <div id="timer">0</div>
+
+        <div id="controls">
+            <button id="start">Nouvelle manche</button>
+            <select id="player-select"></select>
+            <button id="word-found" disabled>Mot trouvé</button>
+            <button id="reset-scores">Réinitialiser les scores</button>
         </div>
-        <div class="team" id="team2">
-            <span class="name">Équipe 2</span>
-            <span class="score" id="score2">0</span>
-        </div>
     </div>
-
-    <div id="active-team">Équipe active : <span id="activeName">Équipe 1</span></div>
-
-    <div id="word-display">Appuyez sur "Nouvelle manche"</div>
-
-    <div id="timer">0</div>
-
-    <div id="settings">
-        <label for="custom-words">Mots personnalisés (séparés par des virgules) :</label>
-        <input type="text" id="custom-words" placeholder="mot1,mot2">
-    </div>
-
-    <div id="controls">
-        <button id="start">Nouvelle manche</button>
-        <button id="team1-found" disabled>Équipe 1 a trouvé</button>
-        <button id="team2-found" disabled>Équipe 2 a trouvé</button>
-        <button id="reset-scores">Réinitialiser les scores</button>
-    </div>
-
-    </div> <!-- end container -->
     <script src="script.js"></script>
 </body>
 </html>

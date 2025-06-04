@@ -43,6 +43,7 @@ function startRound() {
 
     elapsedSeconds = 0;
     document.getElementById('timer').textContent = elapsedSeconds;
+    document.getElementById('timer').classList.add('running');
 
     document.getElementById('team1-found').disabled = false;
     document.getElementById('team2-found').disabled = false;
@@ -71,7 +72,9 @@ function endRound(winnerTeam) {
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
     wordDisplay.classList.remove('flash');
-    document.getElementById('timer').textContent = elapsedSeconds;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = elapsedSeconds;
+    timerEl.classList.remove('running');
 }
 
 // event listeners

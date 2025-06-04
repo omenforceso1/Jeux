@@ -41,14 +41,19 @@ function renderConfig() {
     const container = document.getElementById('teams-config');
     container.innerHTML = '';
 
-    const datalist = document.createElement('datalist');
-    datalist.id = 'players-datalist';
+    let datalist = document.getElementById('players-datalist');
+    if (!datalist) {
+        datalist = document.createElement('datalist');
+        datalist.id = 'players-datalist';
+        document.body.appendChild(datalist);
+    } else {
+        datalist.innerHTML = '';
+    }
     Object.keys(players).forEach(name => {
         const option = document.createElement('option');
         option.value = name;
         datalist.appendChild(option);
     });
-    container.appendChild(datalist);
 
     teams.forEach((team, tIdx) => {
         const div = document.createElement('div');
@@ -113,7 +118,7 @@ function updatePlayerSelect() {
         team.players.forEach((player, pIdx) => {
             const option = document.createElement('option');
             option.value = `${tIdx}-${pIdx}`;
-            option.textContent = `${player.name} - ${team.name}`;
+            option.textContent = player.name;
             select.appendChild(option);
         });
     });
@@ -136,6 +141,7 @@ function startRound() {
     void wordDisplay.offsetWidth;
     wordDisplay.classList.add('flash');
     document.getElementById('toggle-word').style.display = 'block';
+    document.getElementById('change-word').style.display = 'block';
 
     elapsedSeconds = 0;
     document.getElementById('timer').textContent = elapsedSeconds;
@@ -147,6 +153,19 @@ function startRound() {
         elapsedSeconds++;
         document.getElementById('timer').textContent = elapsedSeconds;
     }, 1000);
+}
+
+function changeWord() {
+    currentWord = defaultWords[Math.floor(Math.random() * defaultWords.length)];
+    const wordDisplay = document.getElementById('word-display');
+    const hidden = wordDisplay.classList.contains('hidden');
+    wordDisplay.textContent = currentWord;
+    wordDisplay.classList.remove('flash');
+    void wordDisplay.offsetWidth;
+    wordDisplay.classList.add('flash');
+    if (hidden) {
+        wordDisplay.classList.add('hidden');
+    }
 }
 
 function endRound() {
@@ -175,6 +194,7 @@ function endRound() {
     wordDisplay.classList.remove('flash');
     wordDisplay.classList.remove('hidden');
     document.getElementById('toggle-word').style.display = 'none';
+    document.getElementById('change-word').style.display = 'none';
     document.getElementById('timer').textContent = elapsedSeconds;
 }
 
@@ -188,6 +208,7 @@ function resetGameUI() {
     wordDisplay.classList.remove('flash');
     wordDisplay.classList.remove('hidden');
     document.getElementById('toggle-word').style.display = 'none';
+    document.getElementById('change-word').style.display = 'none';
     document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
 }
@@ -251,6 +272,8 @@ document.getElementById('start').addEventListener('click', startRound);
 document.getElementById('toggle-word').addEventListener('click', () => {
     document.getElementById('word-display').classList.toggle('hidden');
 });
+
+document.getElementById('change-word').addEventListener('click', changeWord);
 
 document.getElementById('word-found').addEventListener('click', endRound);
 

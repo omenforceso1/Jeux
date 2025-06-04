@@ -3,72 +3,124 @@ const defaultWords = [
     'Bateau', 'Arc-en-ciel', 'Licorne', 'Robot', 'Montagne'
 ];
 
-let activeTeam = 1;
+let teams = [];
+let activeTeamIndex = 0;
 let timer;
 let elapsedSeconds = 0;
 
-function loadSettings() {
-    const savedWords = localStorage.getItem('customWords');
-    if (savedWords !== null) {
-        document.getElementById('custom-words').value = savedWords;
+function loadState() {
+    const data = localStorage.getItem('teams');
+    if (data) {
+        teams = JSON.parse(data);
     }
-    const s1 = parseInt(localStorage.getItem('score1'), 10);
-    const s2 = parseInt(localStorage.getItem('score2'), 10);
-    if (!isNaN(s1)) document.getElementById('score1').textContent = s1;
-    if (!isNaN(s2)) document.getElementById('score2').textContent = s2;
-    const savedTeam = parseInt(localStorage.getItem('activeTeam'), 10);
-    if (savedTeam === 1 || savedTeam === 2) {
-        activeTeam = savedTeam;
+    const active = parseInt(localStorage.getItem('activeTeamIndex'), 10);
+    if (!isNaN(active)) {
+        activeTeamIndex = active;
     }
-    document.getElementById('timer').textContent = 0;
+}
+
+function saveState() {
+    localStorage.setItem('teams', JSON.stringify(teams));
+    localStorage.setItem('activeTeamIndex', activeTeamIndex);
+}
+
+function renderConfig() {
+    const container = document.getElementById('teams-config');
+    container.innerHTML = '';
+    teams.forEach((team, tIdx) => {
+        const div = document.createElement('div');
+        div.className = 'config-team';
+
+        const title = document.createElement('h3');
+        title.textContent = team.name;
+        div.appendChild(title);
+
+        const ul = document.createElement('ul');
+        team.players.forEach(p => {
+            const li = document.createElement('li');
+            li.textContent = p.name;
+            ul.appendChild(li);
+        });
+        div.appendChild(ul);
+
+        const addPlayer = document.createElement('button');
+        addPlayer.textContent = 'Ajouter un joueur';
+        addPlayer.addEventListener('click', () => {
+            const name = prompt('Prénom du joueur :');
+            if (name) {
+                team.players.push({ name, score: 0 });
+                renderConfig();
+                saveState();
+            }
+        });
+        div.appendChild(addPlayer);
+        container.appendChild(div);
+    });
+    document.getElementById('start-game').disabled = teams.length === 0;
+}
+
+function renderScoreboard() {
+    const board = document.getElementById('scoreboard');
+    board.innerHTML = '';
+    teams.forEach((team, idx) => {
+        const div = document.createElement('div');
+        div.className = 'team';
+        const name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = team.name;
+        const score = document.createElement('span');
+        score.className = 'score';
+        score.id = `score-${idx}`;
+        score.textContent = team.score || 0;
+        div.appendChild(name);
+        div.appendChild(score);
+
+        const playersDiv = document.createElement('div');
+        playersDiv.className = 'players';
+        team.players.forEach(p => {
+            const el = document.createElement('div');
+            el.textContent = `${p.name} (${p.score || 0})`;
+            playersDiv.appendChild(el);
+        });
+        div.appendChild(playersDiv);
+        board.appendChild(div);
+    });
     updateActiveTeam();
+}
+
+function updatePlayerSelect() {
+    const select = document.getElementById('player-select');
+    select.innerHTML = '';
+    teams.forEach((team, tIdx) => {
+        team.players.forEach((player, pIdx) => {
+            const option = document.createElement('option');
+            option.value = `${tIdx}-${pIdx}`;
+            option.textContent = `${player.name} - ${team.name}`;
+            select.appendChild(option);
+        });
+    });
 }
 
 function updateActiveTeam() {
-    const name = activeTeam === 1 ? 'Équipe 1' : 'Équipe 2';
-    document.getElementById('activeName').textContent = name;
-
-    const team1 = document.getElementById('team1');
-    const team2 = document.getElementById('team2');
-    team1.classList.toggle('active-team', activeTeam === 1);
-    team2.classList.toggle('active-team', activeTeam === 2);
-}
-
-function saveGameState() {
-    localStorage.setItem('score1', document.getElementById('score1').textContent);
-    localStorage.setItem('score2', document.getElementById('score2').textContent);
-    localStorage.setItem('activeTeam', activeTeam);
-}
-
-function resetScores() {
-    document.getElementById('score1').textContent = 0;
-    document.getElementById('score2').textContent = 0;
-    activeTeam = 1;
-    updateActiveTeam();
-    saveGameState();
+    if (teams.length === 0) return;
+    document.getElementById('activeName').textContent = teams[activeTeamIndex].name;
+    document.querySelectorAll('#scoreboard .team').forEach((div, idx) => {
+        div.classList.toggle('active-team', idx === activeTeamIndex);
+    });
 }
 
 function startRound() {
-    const customInput = document.getElementById('custom-words').value;
-
-    localStorage.setItem('customWords', customInput);
-
-    const customWords = customInput.split(',').map(w => w.trim()).filter(w => w);
-    const availableWords = defaultWords.concat(customWords);
-
-    const word = availableWords[Math.floor(Math.random() * availableWords.length)];
+    const word = defaultWords[Math.floor(Math.random() * defaultWords.length)];
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = word;
     wordDisplay.classList.remove('flash');
-    // restart animation
     void wordDisplay.offsetWidth;
     wordDisplay.classList.add('flash');
 
     elapsedSeconds = 0;
     document.getElementById('timer').textContent = elapsedSeconds;
 
-    document.getElementById('team1-found').disabled = false;
-    document.getElementById('team2-found').disabled = false;
+    document.getElementById('word-found').disabled = false;
     document.getElementById('start').disabled = true;
 
     timer = setInterval(() => {
@@ -77,33 +129,66 @@ function startRound() {
     }, 1000);
 }
 
-function endRound(winnerTeam) {
+function endRound() {
     clearInterval(timer);
-    document.getElementById('team1-found').disabled = true;
-    document.getElementById('team2-found').disabled = true;
+    document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
-    if (winnerTeam === 1 || winnerTeam === 2) {
-        const scoreId = 'score' + winnerTeam;
-        const current = parseInt(document.getElementById(scoreId).textContent, 10);
-        document.getElementById(scoreId).textContent = current + 1;
+
+    const value = document.getElementById('player-select').value;
+    const [tIdx, pIdx] = value.split('-').map(v => parseInt(v, 10));
+    const team = teams[tIdx];
+    if (team && team.players[pIdx]) {
+        team.players[pIdx].score = (team.players[pIdx].score || 0) + 1;
+        team.score = (team.score || 0) + 1;
     }
 
-    // switch active team
-    activeTeam = activeTeam === 1 ? 2 : 1;
-    updateActiveTeam();
-    saveGameState();
+    activeTeamIndex = (activeTeamIndex + 1) % teams.length;
+    saveState();
+    renderScoreboard();
+    updatePlayerSelect();
+
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
     wordDisplay.classList.remove('flash');
     document.getElementById('timer').textContent = elapsedSeconds;
 }
 
-// event listeners
+function resetScores() {
+    teams.forEach(team => {
+        team.score = 0;
+        team.players.forEach(p => p.score = 0);
+    });
+    activeTeamIndex = 0;
+    saveState();
+    renderScoreboard();
+    updatePlayerSelect();
+}
+
+// configuration events
+
+document.getElementById('add-team').addEventListener('click', () => {
+    const name = prompt("Nom de l'équipe :");
+    if (name) {
+        teams.push({ name, score: 0, players: [] });
+        renderConfig();
+        saveState();
+    }
+});
+
+document.getElementById('start-game').addEventListener('click', () => {
+    document.getElementById('config-container').style.display = 'none';
+    document.getElementById('game-container').style.display = 'block';
+    renderScoreboard();
+    updatePlayerSelect();
+});
 
 document.getElementById('start').addEventListener('click', startRound);
-document.getElementById('team1-found').addEventListener('click', () => endRound(1));
-document.getElementById('team2-found').addEventListener('click', () => endRound(2));
+
+document.getElementById('word-found').addEventListener('click', endRound);
+
 document.getElementById('reset-scores').addEventListener('click', resetScores);
 
-updateActiveTeam();
-loadSettings();
+loadState();
+renderConfig();
+
+document.getElementById('game-container').style.display = 'none';

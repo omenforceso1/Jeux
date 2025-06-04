@@ -28,6 +28,20 @@ body {
     max-width: 600px;
     width: 100%;
 }
+.config-team {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+.config-team h3 {
+    margin: 0 0 5px;
+}
+.config-team ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 5px;
+}
 
 h1 {
     margin-top: 0;
@@ -52,6 +66,13 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.team .players {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+.team .players div {
+    margin: 2px 0;
 }
 .team .name {
     font-weight: 600;
@@ -86,9 +107,6 @@ h1 {
     font-weight: bold;
 }
 
-#settings {
-    margin-bottom: 15px;
-}
 
 #controls {
     display: flex;
@@ -130,7 +148,8 @@ button:hover:not(:disabled) {
 }
 
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+select {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 6px;

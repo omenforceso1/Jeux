@@ -14,6 +14,11 @@ let elapsedSeconds = 0;
 let currentWord = '';
 let currentTheme = 'light';
 
+function createPlayer(name) {
+    return { name, totalScore: 0, gamesPlayed: 0, createdAt: new Date().toISOString() };
+}
+
+
 function loadState() {
     const data = localStorage.getItem('teams');
     if (data) {
@@ -22,6 +27,7 @@ function loadState() {
     const pData = localStorage.getItem('players');
     if (pData) {
         players = JSON.parse(pData);
+        Object.values(players).forEach(p => { if (!p.createdAt) p.createdAt = new Date().toISOString(); });
     }
     const hData = localStorage.getItem('history');
     if (hData) {
@@ -261,7 +267,7 @@ document.getElementById('start-game').addEventListener('click', () => {
             const name = input.value.trim();
             if (name) {
                 if (!players[name]) {
-                    players[name] = { name, totalScore: 0, gamesPlayed: 0 };
+                    players[name] = createPlayer(name);
                 }
                 team.players.push({ name, score: 0 });
             }
@@ -361,7 +367,7 @@ function renderStats() {
         const div = document.createElement('div');
         const games = p.gamesPlayed || 0;
         const score = p.totalScore || 0;
-        div.textContent = `${p.name}: ${score} point(s) en ${games} partie(s)`;
+        div.textContent = `${p.name} (inscrit le ${new Date(p.createdAt).toLocaleDateString()}) : ${score} point(s) en ${games} partie(s)`;
         list.appendChild(div);
     });
 }

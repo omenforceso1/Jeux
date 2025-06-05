@@ -34,10 +34,10 @@ Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieu
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
 - **Réinitialiser les scores** : remet les scores de tous les joueurs et équipes à zéro.
 - **Historique** : affiche la liste des parties précédentes et permet de vider cette liste.
-- **Stats** : affiche les statistiques cumulées de tous les joueurs enregistrés.
+- **Stats** : affiche pour chaque joueur son score total, le nombre de parties jouées et sa date d'inscription.
 
 ## Historique des parties
 L'application mémorise localement chaque partie terminée. Le bouton **Historique** ouvre une fenêtre récapitulative indiquant la date et le score de chaque équipe. Depuis cette fenêtre, vous pouvez également effacer toutes les données enregistrées.
 
 ## Statistiques des joueurs
-Le bouton **Stats** affiche un classement des joueurs enregistrés avec le nombre total de points accumulés et le nombre de parties jouées. Vous pouvez remettre ces statistiques à zéro depuis cette même fenêtre.
+Le bouton **Stats** affiche un classement des joueurs enregistrés avec leur date d'inscription, le nombre total de points accumulés et le nombre de parties jouées. Vous pouvez remettre ces statistiques à zéro depuis cette même fenêtre.

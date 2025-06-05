@@ -1,16 +1,16 @@
 :root {
-    --primary: #4f46e5;
-    --secondary: #1e293b;
-    --accent: #f97316;
-    --bg-start: #f8fafc;
-    --bg-end: #e0f2fe;
-    --accent-light: #fed7aa;
-    --container-bg1: #ffffff;
-    --container-bg2: #f1f5f9;
+    --primary: #6366f1;
+    --secondary: #334155;
+    --accent: #ef4444;
+    --bg-start: #e0e7ff;
+    --bg-end: #f0f9ff;
+    --accent-light: #fecaca;
+    --container-bg1: rgba(255, 255, 255, 0.85);
+    --container-bg2: rgba(255, 255, 255, 0.65);
 }
 
 body {
-    font-family: "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Poppins", "Montserrat", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     text-align: center;
     background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
@@ -22,6 +22,7 @@ body {
 
 .container {
     background: linear-gradient(to bottom right, var(--container-bg1), var(--container-bg2));
+    backdrop-filter: blur(8px);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
@@ -30,9 +31,11 @@ body {
 }
 .config-team {
     background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
     padding: 10px;
     border-radius: 12px;
     margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 .config-team h3 {
     margin: 0 0 5px;
@@ -64,16 +67,23 @@ h1 {
     justify-content: space-between;
     margin-bottom: 20px;
     gap: 10px;
+    backdrop-filter: blur(4px);
 }
 
 .team {
     flex: 1;
-    background: linear-gradient(to bottom right, var(--secondary), #0f172a);
+    background: linear-gradient(to bottom right, var(--secondary), #1e293b);
     color: #fff;
     padding: 20px 15px;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 .team .players {
     margin-top: 10px;
@@ -92,7 +102,7 @@ h1 {
 .active-team {
     border: 3px solid var(--accent);
     transform: scale(1.05);
-    box-shadow: 0 0 10px var(--accent);
+    box-shadow: 0 0 15px var(--accent);
 }
 
 .score {

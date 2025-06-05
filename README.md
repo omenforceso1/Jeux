@@ -21,6 +21,10 @@ Le jeu s’affiche alors directement dans le navigateur et peut être utilisé h
 - **index.html** : structure de la page et des éléments du jeu (scores, boutons, etc.).
 - **style.css** : mise en forme de l’interface (positionnement, couleurs et typographie).
 - **script.js** : logique du jeu : tirage des mots aléatoires, gestion du minuteur, des scores et de l’équipe active.
+- **words.js** : liste de mots utilisée pour les manches. Vous pouvez y ajouter facilement des centaines ou milliers de mots supplémentaires.
+
+### Personnaliser la liste de mots
+Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieurs milliers si nécessaire). Le script chargera automatiquement cette liste au démarrage du jeu.
 
 ## Commandes et interface
 - **Ajouter une équipe** / **Ajouter un joueur** : permettent de préparer la partie sur l’écran de configuration.

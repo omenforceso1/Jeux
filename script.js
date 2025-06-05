@@ -10,6 +10,7 @@ let activeTeamIndex = 0;
 let timer;
 let elapsedSeconds = 0;
 let currentWord = '';
+let currentTheme = 'light';
 
 function loadState() {
     const data = localStorage.getItem('teams');
@@ -28,6 +29,10 @@ function loadState() {
     if (!isNaN(active)) {
         activeTeamIndex = active;
     }
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+        currentTheme = theme;
+    }
 }
 
 function saveState() {
@@ -35,6 +40,15 @@ function saveState() {
     localStorage.setItem('players', JSON.stringify(players));
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('activeTeamIndex', activeTeamIndex);
+    localStorage.setItem('theme', currentTheme);
+}
+
+function applyTheme() {
+    document.body.classList.toggle('dark', currentTheme === 'dark');
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+        btn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
 }
 
 function renderConfig() {
@@ -292,9 +306,15 @@ document.getElementById('menu-btn').addEventListener('click', () => {
     document.getElementById('config-container').style.display = 'block';
 });
 
-loadState();
-renderConfig();
+document.getElementById('theme-toggle').addEventListener('click', () => {
+    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme();
+    saveState();
+});
 
+loadState();
+applyTheme();
+renderConfig();
 resetGameUI();
 
 document.getElementById('game-container').style.display = 'none';

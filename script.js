@@ -346,6 +346,45 @@ document.getElementById('clear-history').addEventListener('click', () => {
     renderHistory();
 });
 
+function renderStats() {
+    const list = document.getElementById('stats-list');
+    if (!list) return;
+    list.innerHTML = '';
+    const playersArr = Object.values(players).sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
+    if (playersArr.length === 0) {
+        list.textContent = 'Aucun joueur enregistr\u00e9.';
+        return;
+    }
+    playersArr.forEach(p => {
+        const div = document.createElement('div');
+        const games = p.gamesPlayed || 0;
+        const score = p.totalScore || 0;
+        div.textContent = `${p.name}: ${score} point(s) en ${games} partie(s)`;
+        list.appendChild(div);
+    });
+}
+
+function showStats() {
+    renderStats();
+    document.getElementById('stats-modal').style.display = 'flex';
+}
+
+function closeStats() {
+    document.getElementById('stats-modal').style.display = 'none';
+}
+
+document.querySelectorAll('#show-stats-config, #show-stats-game').forEach(btn => {
+    if (btn) btn.addEventListener('click', showStats);
+});
+
+document.getElementById('close-stats').addEventListener('click', closeStats);
+
+document.getElementById('clear-stats').addEventListener('click', () => {
+    players = {};
+    saveState();
+    renderStats();
+});
+
 document.getElementById('theme-toggle').addEventListener('click', () => {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme();

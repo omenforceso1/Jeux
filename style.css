@@ -339,3 +339,9 @@ select {
     overflow-y: auto;
     margin-bottom: 10px;
 }
+#stats-list {
+    text-align: left;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}

@@ -27,6 +27,7 @@
         <div id="teams-config"></div>
         <button id="start-game" disabled>Commencer la partie</button>
         <button id="show-history-config">Historique</button>
+        <button id="show-stats-config">Stats</button>
     </div>
 
     <div id="game-container" class="container">
@@ -53,6 +54,7 @@
             <button id="reset-scores">Réinitialiser les scores</button>
             <button id="menu-btn">Menu</button>
             <button id="show-history-game">Historique</button>
+            <button id="show-stats-game">Stats</button>
         </div>
     </div>
     <div id="history-modal" class="modal" style="display:none">
@@ -61,6 +63,14 @@
             <div id="history-list"></div>
             <button id="clear-history">Effacer l'historique</button>
             <button id="close-history">Fermer</button>
+        </div>
+    </div>
+    <div id="stats-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Classement des joueurs</h2>
+            <div id="stats-list"></div>
+            <button id="clear-stats">Réinitialiser les stats</button>
+            <button id="close-stats">Fermer</button>
         </div>
     </div>
     <script src="script.js"></script>

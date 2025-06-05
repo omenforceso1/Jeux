@@ -26,6 +26,7 @@
         </div>
         <div id="teams-config"></div>
         <button id="start-game" disabled>Commencer la partie</button>
+        <button id="show-history-config">Historique</button>
     </div>
 
     <div id="game-container" class="container">
@@ -51,6 +52,15 @@
             <button id="word-found" disabled>Mot trouvé</button>
             <button id="reset-scores">Réinitialiser les scores</button>
             <button id="menu-btn">Menu</button>
+            <button id="show-history-game">Historique</button>
+        </div>
+    </div>
+    <div id="history-modal" class="modal" style="display:none">
+        <div class="modal-content">
+            <h2>Historique des parties</h2>
+            <div id="history-list"></div>
+            <button id="clear-history">Effacer l'historique</button>
+            <button id="close-history">Fermer</button>
         </div>
     </div>
     <script src="script.js"></script>

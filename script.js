@@ -44,10 +44,12 @@ function saveState() {
 }
 
 function applyTheme() {
-    document.body.classList.toggle('dark', currentTheme === 'dark');
+    const dark = currentTheme === 'dark';
+    document.body.classList.toggle('dark', dark);
+    document.documentElement.classList.toggle('dark', dark);
     const btn = document.getElementById('theme-toggle');
     if (btn) {
-        btn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        btn.textContent = dark ? '☀️' : '🌙';
     }
 }
 

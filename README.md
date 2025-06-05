@@ -29,3 +29,7 @@ Le jeu s’affiche alors directement dans le navigateur et peut être utilisé h
 - **Mot trouvé** : après avoir sélectionné le joueur gagnant, arrête le chronomètre et ajoute un point au joueur et à son équipe.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
 - **Réinitialiser les scores** : remet les scores de tous les joueurs et équipes à zéro.
+- **Historique** : affiche la liste des parties précédentes et permet de vider cette liste.
+
+## Historique des parties
+L'application mémorise localement chaque partie terminée. Le bouton **Historique** ouvre une fenêtre récapitulative indiquant la date et le score de chaque équipe. Depuis cette fenêtre, vous pouvez également effacer toutes les données enregistrées.

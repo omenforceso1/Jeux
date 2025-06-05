@@ -308,6 +308,44 @@ document.getElementById('menu-btn').addEventListener('click', () => {
     document.getElementById('config-container').style.display = 'block';
 });
 
+function renderHistory() {
+    const list = document.getElementById('history-list');
+    if (!list) return;
+    list.innerHTML = '';
+    if (history.length === 0) {
+        list.textContent = 'Aucune partie enregistrée.';
+        return;
+    }
+    history.slice().reverse().forEach(game => {
+        const div = document.createElement('div');
+        const date = new Date(game.date).toLocaleString();
+        const scores = game.teams.map(t => `${t.name}: ${t.score || 0}`).join(', ');
+        div.textContent = `${date} - ${scores}`;
+        list.appendChild(div);
+    });
+}
+
+function showHistory() {
+    renderHistory();
+    document.getElementById('history-modal').style.display = 'flex';
+}
+
+function closeHistory() {
+    document.getElementById('history-modal').style.display = 'none';
+}
+
+document.querySelectorAll('#show-history-config, #show-history-game').forEach(btn => {
+    if (btn) btn.addEventListener('click', showHistory);
+});
+
+document.getElementById('close-history').addEventListener('click', closeHistory);
+
+document.getElementById('clear-history').addEventListener('click', () => {
+    history = [];
+    saveState();
+    renderHistory();
+});
+
 document.getElementById('theme-toggle').addEventListener('click', () => {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme();

@@ -1,7 +1,9 @@
-const defaultWords = [
-    'Chat', 'Chocolat', 'Avion', 'Pyramide', 'Pirate',
-    'Bateau', 'Arc-en-ciel', 'Licorne', 'Robot', 'Montagne'
-];
+const defaultWords = typeof window !== 'undefined' && Array.isArray(window.wordList) && window.wordList.length
+  ? window.wordList
+  : [
+      'Chat', 'Chocolat', 'Avion', 'Pyramide', 'Pirate',
+      'Bateau', 'Arc-en-ciel', 'Licorne', 'Robot', 'Montagne'
+    ];
 
 let teams = [];
 let players = {};

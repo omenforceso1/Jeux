@@ -1,0 +1,22 @@
+window.wordList = [
+  'Chat', 'Chien', 'Voiture', 'Avion', 'Maison',
+  'Ordinateur', 'Livre', 'Pomme', 'Montagne', 'Océan',
+  'Soleil', 'Lune', 'Étoile', 'Rivière', 'Forêt',
+  'Neige', 'Pluie', 'Tempête', 'Arc', 'Fleur',
+  'Désert', 'Ferme', 'Route', 'Train', 'Bateau',
+  'Pirate', 'Robot', 'Chocolat', 'Musique', 'Guitare',
+  'Piano', 'Tambour', 'Danse', 'Cheval', 'Souris',
+  'Lumière', 'Ombre', 'Valise', 'Voyage', 'Café',
+  'Thé', 'Bonbon', 'Nuage', 'Vent', 'Chanson',
+  'Poésie', 'Ciel', 'Parapluie', 'Fauteuil', 'Chaise',
+  'Table', 'Téléphone', 'Radio', 'Journal', 'Carte',
+  'Photo', 'Film', 'Théâtre', 'Hôtel', 'Magasin',
+  'École', 'Université', 'Boulangerie', 'Bouteille', 'Verre',
+  'Cuisine', 'Salon', 'Jardin', 'Parc', 'Ville',
+  'Village', 'Pays', 'Continent', 'Planète', 'Galaxie',
+  'Univers', 'Voyageur', 'Explorateur', 'Héros', 'Princesse',
+  'Dragon', 'Monstre', 'Trésor', 'Cascade', 'Plage',
+  'Vacances', 'Robotique', 'Science', 'Histoire', 'Art',
+  'Peinture', 'Sculpture', 'Architecte', 'Ingénieur', 'Médecin',
+  'Professeur', 'Student', 'Bureau', 'Ami', 'Famille'
+];

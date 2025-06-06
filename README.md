@@ -30,6 +30,7 @@ Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieu
 - **Ajouter une équipe** / **Ajouter un joueur** : permettent de préparer la partie sur l’écran de configuration.
 - **Commencer la partie** : passe à l’écran de jeu avec le tableau des scores.
 - **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active le bouton de validation.
+- **Pause** : suspend ou reprend le chronomètre en cours de manche.
 - **Mot trouvé** : après avoir sélectionné le joueur gagnant, arrête le chronomètre et ajoute un point au joueur et à son équipe.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
 - **Réinitialiser les scores** : remet les scores de tous les joueurs et équipes à zéro.

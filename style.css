@@ -372,3 +372,10 @@ select {
     background: rgba(0, 0, 0, 0.05);
     border-radius: 6px;
 }
+#rules-list {
+    text-align: left;
+    margin-bottom: 10px;
+}
+#rules-list li {
+    margin-bottom: 4px;
+}

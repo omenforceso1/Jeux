@@ -453,6 +453,25 @@ document.getElementById('clear-stats').addEventListener('click', () => {
     renderStats();
 });
 
+function showRules(context) {
+    const modal = document.getElementById('rules-modal');
+    const content = document.getElementById('rules-content');
+    modal.style.display = 'flex';
+    content.classList.toggle('game', context === 'game');
+    content.classList.toggle('menu', context !== 'game');
+}
+
+function closeRules() {
+    document.getElementById('rules-modal').style.display = 'none';
+}
+
+const rulesConfigBtn = document.getElementById('show-rules-config');
+if (rulesConfigBtn) rulesConfigBtn.addEventListener('click', () => showRules('menu'));
+const rulesGameBtn = document.getElementById('show-rules-game');
+if (rulesGameBtn) rulesGameBtn.addEventListener('click', () => showRules('game'));
+
+document.getElementById('close-rules').addEventListener('click', closeRules);
+
 document.getElementById('theme-toggle').addEventListener('click', () => {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme();

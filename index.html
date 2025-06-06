@@ -28,6 +28,7 @@
         <button id="start-game" disabled>Commencer la partie</button>
         <button id="show-history-config">Historique</button>
         <button id="show-stats-config">Stats</button>
+        <button id="show-rules-config">Règles</button>
     </div>
 
     <div id="game-container" class="container">
@@ -55,6 +56,7 @@
             <button id="menu-btn">Menu</button>
             <button id="show-history-game">Historique</button>
             <button id="show-stats-game">Stats</button>
+            <button id="show-rules-game">Règles</button>
         </div>
     </div>
         <div id="history-modal" class="modal" style="display:none">
@@ -76,6 +78,19 @@
                 <ul id="stats-list"></ul>
                 <button id="clear-stats">Réinitialiser les stats</button>
                 <button id="close-stats">Fermer</button>
+            </div>
+        </div>
+        <div id="rules-modal" class="modal" style="display:none">
+            <div class="modal-content menu" id="rules-content">
+                <h2>Règles du jeu</h2>
+                <ol id="rules-list">
+                    <li>Depuis l'écran de configuration, créez les équipes et leurs joueurs puis démarrez la partie.</li>
+                    <li>Appuyez sur <strong>Nouvelle manche</strong> pour obtenir un mot et lancer le chrono.</li>
+                    <li>L'équipe active fait deviner le mot sans le prononcer.</li>
+                    <li>Lorsque le mot est trouvé, sélectionnez le joueur gagnant puis cliquez sur <strong>Mot trouvé</strong>.</li>
+                    <li>L'équipe suivante devient active et la manche reprend.</li>
+                </ol>
+                <button id="close-rules">Fermer</button>
             </div>
         </div>
     <script src="words.js"></script>

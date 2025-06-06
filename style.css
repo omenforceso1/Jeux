@@ -355,6 +355,11 @@ select {
     background: rgba(0, 0, 0, 0.05);
     border-radius: 6px;
 }
+.history-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 #stats-list {
     text-align: left;
     max-height: 300px;

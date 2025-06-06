@@ -365,6 +365,44 @@ document.getElementById('clear-history').addEventListener('click', () => {
     renderHistory();
 });
 
+function exportHistory() {
+    const blob = new Blob([JSON.stringify(history, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'history.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function handleImportHistory(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+        try {
+            const data = JSON.parse(reader.result);
+            if (Array.isArray(data)) {
+                history = data;
+                saveState();
+                renderHistory();
+            } else {
+                alert('Fichier invalide');
+            }
+        } catch (e) {
+            alert('Fichier invalide');
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+document.getElementById('export-history').addEventListener('click', exportHistory);
+document.getElementById('import-history').addEventListener('click', () => {
+    document.getElementById('import-history-file').click();
+});
+document.getElementById('import-history-file').addEventListener('change', handleImportHistory);
+
 function renderStats() {
     const list = document.getElementById('stats-list');
     if (!list) return;

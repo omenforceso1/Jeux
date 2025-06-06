@@ -42,5 +42,7 @@ L'application mémorise localement chaque partie terminée. Le bouton **Historiq
 ## Statistiques des joueurs
 Le bouton **Stats** affiche un classement des joueurs enregistrés avec leur date d'inscription, le nombre total de points accumulés et le nombre de parties jouées. Vous pouvez remettre ces statistiques à zéro depuis cette même fenêtre.
 
+Les fenêtres d'historique et de statistiques adoptent désormais un style différent selon qu'elles sont ouvertes depuis le menu ou au cours d'une partie, afin de mieux distinguer les données globales de celles liées à la partie en cours.
+
 ## Design amélioré
 La feuille de style a été retravaillée afin d'offrir une interface plus claire et plus agréable. Les équipes sont mieux mises en valeur sur le tableau de score et le bouton permettant de changer de thème dispose d'une étiquette d'accessibilité.

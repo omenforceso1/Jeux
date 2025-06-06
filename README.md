@@ -36,6 +36,7 @@ Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieu
 - **Historique** : affiche la liste des parties précédentes et permet de vider cette liste.
 - **Exporter / Importer l'historique** : permet de sauvegarder ou charger les parties enregistrées au format JSON.
 - **Stats** : affiche pour chaque joueur son score total, le nombre de parties jouées et sa date d'inscription.
+- **Règles** : rappelle les principes du jeu à tout moment.
 
 ## Historique des parties
 L'application mémorise localement chaque partie terminée. Le bouton **Historique** ouvre une fenêtre récapitulative indiquant la date et le score de chaque équipe. Depuis cette fenêtre, vous pouvez également effacer toutes les données enregistrées.
@@ -48,3 +49,4 @@ Les fenêtres d'historique et de statistiques adoptent désormais un style diff�
 
 ## Design amélioré
 La feuille de style a été retravaillée afin d'offrir une interface plus claire et plus agréable. Les équipes sont mieux mises en valeur sur le tableau de score et le bouton permettant de changer de thème dispose d'une étiquette d'accessibilité.
+Un bouton **Règles** a aussi été ajouté pour rappeler rapidement le principe du jeu.

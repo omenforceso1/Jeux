@@ -336,6 +336,12 @@ select {
     width: 90%;
     color: var(--secondary);
 }
+.modal-content.menu {
+    border-top: 4px solid var(--primary);
+}
+.modal-content.game {
+    border-top: 4px solid var(--accent);
+}
 
 #history-list {
     text-align: left;
@@ -343,9 +349,21 @@ select {
     overflow-y: auto;
     margin-bottom: 10px;
 }
+#history-list li {
+    padding: 4px 6px;
+    margin-bottom: 4px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
+}
 #stats-list {
     text-align: left;
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 10px;
+}
+#stats-list li {
+    padding: 4px 6px;
+    margin-bottom: 4px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 6px;
 }

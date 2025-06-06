@@ -321,30 +321,41 @@ function renderHistory() {
     if (!list) return;
     list.innerHTML = '';
     if (history.length === 0) {
-        list.textContent = 'Aucune partie enregistrée.';
+        const li = document.createElement('li');
+        li.textContent = 'Aucune partie enregistrée.';
+        list.appendChild(li);
         return;
     }
     history.slice().reverse().forEach(game => {
-        const div = document.createElement('div');
+        const li = document.createElement('li');
         const date = new Date(game.date).toLocaleString();
         const scores = game.teams.map(t => `${t.name}: ${t.score || 0}`).join(', ');
-        div.textContent = `${date} - ${scores}`;
-        list.appendChild(div);
+        li.textContent = `${date} - ${scores}`;
+        list.appendChild(li);
     });
 }
 
-function showHistory() {
+function showHistory(context) {
     renderHistory();
-    document.getElementById('history-modal').style.display = 'flex';
+    const modal = document.getElementById('history-modal');
+    const content = document.getElementById('history-content');
+    const title = document.getElementById('history-title');
+    modal.style.display = 'flex';
+    content.classList.toggle('game', context === 'game');
+    content.classList.toggle('menu', context !== 'game');
+    if (title) {
+        title.textContent = context === 'game' ? 'Historique de la partie' : 'Historique des parties';
+    }
 }
 
 function closeHistory() {
     document.getElementById('history-modal').style.display = 'none';
 }
 
-document.querySelectorAll('#show-history-config, #show-history-game').forEach(btn => {
-    if (btn) btn.addEventListener('click', showHistory);
-});
+const historyConfigBtn = document.getElementById('show-history-config');
+if (historyConfigBtn) historyConfigBtn.addEventListener('click', () => showHistory('menu'));
+const historyGameBtn = document.getElementById('show-history-game');
+if (historyGameBtn) historyGameBtn.addEventListener('click', () => showHistory('game'));
 
 document.getElementById('close-history').addEventListener('click', closeHistory);
 
@@ -360,30 +371,41 @@ function renderStats() {
     list.innerHTML = '';
     const playersArr = Object.values(players).sort((a, b) => (b.totalScore || 0) - (a.totalScore || 0));
     if (playersArr.length === 0) {
-        list.textContent = 'Aucun joueur enregistr\u00e9.';
+        const li = document.createElement('li');
+        li.textContent = 'Aucun joueur enregistr\u00e9.';
+        list.appendChild(li);
         return;
     }
     playersArr.forEach(p => {
-        const div = document.createElement('div');
+        const li = document.createElement('li');
         const games = p.gamesPlayed || 0;
         const score = p.totalScore || 0;
-        div.textContent = `${p.name} (inscrit le ${new Date(p.createdAt).toLocaleDateString()}) : ${score} point(s) en ${games} partie(s)`;
-        list.appendChild(div);
+        li.textContent = `${p.name} (inscrit le ${new Date(p.createdAt).toLocaleDateString()}) : ${score} point(s) en ${games} partie(s)`;
+        list.appendChild(li);
     });
 }
 
-function showStats() {
+function showStats(context) {
     renderStats();
-    document.getElementById('stats-modal').style.display = 'flex';
+    const modal = document.getElementById('stats-modal');
+    const content = document.getElementById('stats-content');
+    const title = document.getElementById('stats-title');
+    modal.style.display = 'flex';
+    content.classList.toggle('game', context === 'game');
+    content.classList.toggle('menu', context !== 'game');
+    if (title) {
+        title.textContent = context === 'game' ? 'Stats de la partie' : 'Classement des joueurs';
+    }
 }
 
 function closeStats() {
     document.getElementById('stats-modal').style.display = 'none';
 }
 
-document.querySelectorAll('#show-stats-config, #show-stats-game').forEach(btn => {
-    if (btn) btn.addEventListener('click', showStats);
-});
+const statsConfigBtn = document.getElementById('show-stats-config');
+if (statsConfigBtn) statsConfigBtn.addEventListener('click', () => showStats('menu'));
+const statsGameBtn = document.getElementById('show-stats-game');
+if (statsGameBtn) statsGameBtn.addEventListener('click', () => showStats('game'));
 
 document.getElementById('close-stats').addEventListener('click', closeStats);
 

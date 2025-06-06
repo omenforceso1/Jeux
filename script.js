@@ -13,6 +13,7 @@ let timer;
 let elapsedSeconds = 0;
 let currentWord = '';
 let currentTheme = 'light';
+let isPaused = false;
 
 function createPlayer(name) {
     return { name, totalScore: 0, gamesPlayed: 0, createdAt: new Date().toISOString() };
@@ -172,6 +173,12 @@ function startRound() {
 
     document.getElementById('word-found').disabled = false;
     document.getElementById('start').disabled = true;
+    const pauseBtn = document.getElementById('pause');
+    if (pauseBtn) {
+        pauseBtn.disabled = false;
+        pauseBtn.textContent = 'Pause';
+    }
+    isPaused = false;
 
     timer = setInterval(() => {
         elapsedSeconds++;
@@ -192,10 +199,33 @@ function changeWord() {
     }
 }
 
+function togglePause() {
+    const pauseBtn = document.getElementById('pause');
+    if (!pauseBtn) return;
+    if (isPaused) {
+        timer = setInterval(() => {
+            elapsedSeconds++;
+            document.getElementById('timer').textContent = elapsedSeconds;
+        }, 1000);
+        pauseBtn.textContent = 'Pause';
+        isPaused = false;
+    } else {
+        clearInterval(timer);
+        pauseBtn.textContent = 'Reprendre';
+        isPaused = true;
+    }
+}
+
 function endRound() {
     clearInterval(timer);
     document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
+    const pauseBtn = document.getElementById('pause');
+    if (pauseBtn) {
+        pauseBtn.disabled = true;
+        pauseBtn.textContent = 'Pause';
+    }
+    isPaused = false;
 
     const value = document.getElementById('player-select').value;
     const [tIdx, pIdx] = value.split('-').map(v => parseInt(v, 10));
@@ -235,6 +265,12 @@ function resetGameUI() {
     document.getElementById('change-word').style.display = 'none';
     document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
+    const pauseBtn = document.getElementById('pause');
+    if (pauseBtn) {
+        pauseBtn.disabled = true;
+        pauseBtn.textContent = 'Pause';
+    }
+    isPaused = false;
 }
 
 function resetScores() {
@@ -292,6 +328,7 @@ document.getElementById('start-game').addEventListener('click', () => {
 });
 
 document.getElementById('start').addEventListener('click', startRound);
+document.getElementById('pause').addEventListener('click', togglePause);
 
 document.getElementById('toggle-word').addEventListener('click', () => {
     document.getElementById('word-display').classList.toggle('hidden');

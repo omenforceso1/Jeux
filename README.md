@@ -34,13 +34,16 @@ Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieu
 - **Mot trouvé** : après avoir sélectionné le joueur gagnant, arrête le chronomètre et ajoute un point au joueur et à son équipe.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.
 - **Réinitialiser les scores** : remet les scores de tous les joueurs et équipes à zéro.
+- **Effacer les données** : supprime l'ensemble des équipes, joueurs et historiques enregistrés.
 - **Historique** : affiche la liste des parties précédentes et permet de vider cette liste.
 - **Exporter / Importer l'historique** : permet de sauvegarder ou charger les parties enregistrées au format JSON.
 - **Stats** : affiche pour chaque joueur son score total, le nombre de parties jouées et sa date d'inscription.
 - **Règles** : rappelle les principes du jeu à tout moment.
+- **Échap** : ferme la fenêtre d'historique, de statistiques ou de règles ouverte.
 
 ## Historique des parties
 L'application mémorise localement chaque partie terminée. Le bouton **Historique** ouvre une fenêtre récapitulative indiquant la date et le score de chaque équipe. Depuis cette fenêtre, vous pouvez également effacer toutes les données enregistrées.
+Un bouton **Effacer les données** est aussi disponible pour réinitialiser complètement l'application (équipes, joueurs et historique).
 Il est désormais possible d'exporter cet historique au format JSON ou de le réimporter ultérieurement.
 
 ## Statistiques des joueurs

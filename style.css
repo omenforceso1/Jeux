@@ -91,6 +91,14 @@ body.dark #theme-toggle {
     justify-content: center;
     gap: 10px;
 }
+
+.config-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
 .config-team ul {
     list-style: none;
     padding: 0;
@@ -207,8 +215,21 @@ h1 {
 
 #controls {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#controls .primary-controls,
+#controls .secondary-controls {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#controls .primary-controls {
+    margin-bottom: 5px;
 }
 
 #timer {
@@ -302,6 +323,11 @@ select {
 
     #controls {
         display: flex;
+        flex-direction: column;
+    }
+    #controls .primary-controls,
+    #controls .secondary-controls,
+    .config-actions {
         flex-direction: column;
     }
 

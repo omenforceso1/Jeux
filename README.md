@@ -55,3 +55,4 @@ Les fenêtres d'historique et de statistiques adoptent désormais un style diff�
 ## Design amélioré
 La feuille de style a été retravaillée afin d'offrir une interface plus claire et plus agréable. Les équipes sont mieux mises en valeur sur le tableau de score et le bouton permettant de changer de thème dispose d'une étiquette d'accessibilité.
 Un bouton **Règles** a aussi été ajouté pour rappeler rapidement le principe du jeu.
+Les cartes des équipes et l'affichage du mot bénéficient désormais d'un effet « verre dépoli » pour un rendu plus moderne.

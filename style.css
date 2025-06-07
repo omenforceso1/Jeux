@@ -91,6 +91,9 @@ body.dark #theme-toggle {
     justify-content: center;
     gap: 10px;
 }
+#round-duration {
+    width: 70px;
+}
 
 .config-actions {
     display: flex;
@@ -242,6 +245,13 @@ h1 {
     border-radius: 10px;
     transition: background 0.3s ease, color 0.3s ease;
     display: inline-block;
+}
+#timer.warning {
+    animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0.5; }
 }
 
 button {

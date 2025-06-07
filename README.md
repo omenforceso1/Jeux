@@ -5,7 +5,7 @@ Ce dépôt contient une petite application web permettant de jouer au *Jeu de la
 
 ## Règles du jeu
 1. Sur l’écran de configuration, ajoutez les équipes puis les joueurs qui les composent, puis lancez la partie.
-2. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0.
+2. Cliquez sur **Nouvelle manche** pour afficher un mot aléatoire et démarrer le chronomètre à 0. Si la durée maximale définie est atteinte, la manche s'arrête automatiquement.
 3. L’équipe active tente de faire deviner le mot à ses coéquipiers sans le prononcer.
 4. Quand le mot est trouvé, sélectionnez le joueur gagnant dans la liste puis cliquez sur **Mot trouvé**. Le joueur et son équipe gagnent un point et le chronomètre s’arrête.
 5. L’équipe active change alors pour la manche suivante. Le temps réalisé reste affiché jusqu’à la prochaine manche.
@@ -30,6 +30,7 @@ Modifiez le fichier `words.js` pour insérer votre propre liste de mots (plusieu
 - **Ajouter une équipe** / **Ajouter un joueur** : permettent de préparer la partie sur l’écran de configuration.
 - **Commencer la partie** : passe à l’écran de jeu avec le tableau des scores.
 - **Nouvelle manche** : tire un mot aléatoire, remet le chronomètre à zéro et active le bouton de validation.
+- **Durée de manche** : choisissez la durée maximale en secondes depuis l'écran de configuration.
 - **Pause** : suspend ou reprend le chronomètre en cours de manche.
 - **Mot trouvé** : après avoir sélectionné le joueur gagnant, arrête le chronomètre et ajoute un point au joueur et à son équipe.
 - L’équipe actuellement active est indiquée sous le tableau de scores et la case de cette équipe est encadrée d’une bordure colorée.

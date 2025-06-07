@@ -10,6 +10,7 @@ let players = {};
 let history = [];
 let activeTeamIndex = 0;
 let timer;
+let startTime = 0;
 let elapsedSeconds = 0;
 let currentWord = '';
 let currentTheme = 'light';
@@ -157,6 +158,12 @@ function updateActiveTeam() {
     });
 }
 
+function runTimer() {
+    elapsedSeconds = (performance.now() - startTime) / 1000;
+    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
+    timer = requestAnimationFrame(runTimer);
+}
+
 function startRound() {
     currentWord = defaultWords[Math.floor(Math.random() * defaultWords.length)];
     const wordDisplay = document.getElementById('word-display');
@@ -169,7 +176,8 @@ function startRound() {
     document.getElementById('change-word').style.display = 'block';
 
     elapsedSeconds = 0;
-    document.getElementById('timer').textContent = elapsedSeconds;
+    startTime = performance.now();
+    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
 
     document.getElementById('word-found').disabled = false;
     document.getElementById('start').disabled = true;
@@ -180,10 +188,7 @@ function startRound() {
     }
     isPaused = false;
 
-    timer = setInterval(() => {
-        elapsedSeconds++;
-        document.getElementById('timer').textContent = elapsedSeconds;
-    }, 1000);
+    runTimer();
 }
 
 function changeWord() {
@@ -203,21 +208,19 @@ function togglePause() {
     const pauseBtn = document.getElementById('pause');
     if (!pauseBtn) return;
     if (isPaused) {
-        timer = setInterval(() => {
-            elapsedSeconds++;
-            document.getElementById('timer').textContent = elapsedSeconds;
-        }, 1000);
+        startTime = performance.now() - elapsedSeconds * 1000;
+        runTimer();
         pauseBtn.textContent = 'Pause';
         isPaused = false;
     } else {
-        clearInterval(timer);
+        cancelAnimationFrame(timer);
         pauseBtn.textContent = 'Reprendre';
         isPaused = true;
     }
 }
 
 function endRound() {
-    clearInterval(timer);
+    cancelAnimationFrame(timer);
     document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
     const pauseBtn = document.getElementById('pause');
@@ -249,13 +252,13 @@ function endRound() {
     wordDisplay.classList.remove('hidden');
     document.getElementById('toggle-word').style.display = 'none';
     document.getElementById('change-word').style.display = 'none';
-    document.getElementById('timer').textContent = elapsedSeconds;
+    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
 }
 
 function resetGameUI() {
-    clearInterval(timer);
+    cancelAnimationFrame(timer);
     elapsedSeconds = 0;
-    document.getElementById('timer').textContent = elapsedSeconds;
+    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
     currentWord = '';
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';

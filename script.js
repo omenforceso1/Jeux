@@ -14,6 +14,7 @@ let startTime = 0;
 let elapsedSeconds = 0;
 let currentWord = '';
 let currentTheme = 'light';
+let roundLimit = 60;
 let isPaused = false;
 
 function createPlayer(name) {
@@ -43,6 +44,10 @@ function loadState() {
     if (theme) {
         currentTheme = theme;
     }
+    const limit = parseInt(localStorage.getItem('roundLimit'), 10);
+    if (!isNaN(limit)) {
+        roundLimit = limit;
+    }
 }
 
 function saveState() {
@@ -51,6 +56,7 @@ function saveState() {
     localStorage.setItem('history', JSON.stringify(history));
     localStorage.setItem('activeTeamIndex', activeTeamIndex);
     localStorage.setItem('theme', currentTheme);
+    localStorage.setItem('roundLimit', roundLimit);
 }
 
 function applyTheme() {
@@ -66,6 +72,18 @@ function applyTheme() {
 function renderConfig() {
     const container = document.getElementById('teams-config');
     container.innerHTML = '';
+
+    const durationInput = document.getElementById('round-duration');
+    if (durationInput) {
+        durationInput.value = roundLimit;
+        durationInput.onchange = e => {
+            const v = parseInt(e.target.value, 10);
+            if (!isNaN(v) && v > 0) {
+                roundLimit = v;
+                saveState();
+            }
+        };
+    }
 
     let datalist = document.getElementById('players-datalist');
     if (!datalist) {
@@ -160,7 +178,17 @@ function updateActiveTeam() {
 
 function runTimer() {
     elapsedSeconds = (performance.now() - startTime) / 1000;
-    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = elapsedSeconds.toFixed(1);
+    if (roundLimit > 0) {
+        const remaining = roundLimit - elapsedSeconds;
+        if (remaining <= 10) timerEl.classList.add('warning');
+        else timerEl.classList.remove('warning');
+        if (remaining <= 0) {
+            endRound();
+            return;
+        }
+    }
     timer = requestAnimationFrame(runTimer);
 }
 
@@ -177,7 +205,9 @@ function startRound() {
 
     elapsedSeconds = 0;
     startTime = performance.now();
-    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = elapsedSeconds.toFixed(1);
+    timerEl.classList.remove('warning');
 
     document.getElementById('word-found').disabled = false;
     document.getElementById('start').disabled = true;
@@ -221,6 +251,7 @@ function togglePause() {
 
 function endRound() {
     cancelAnimationFrame(timer);
+    document.getElementById('timer').classList.remove('warning');
     document.getElementById('word-found').disabled = true;
     document.getElementById('start').disabled = false;
     const pauseBtn = document.getElementById('pause');
@@ -258,7 +289,9 @@ function endRound() {
 function resetGameUI() {
     cancelAnimationFrame(timer);
     elapsedSeconds = 0;
-    document.getElementById('timer').textContent = elapsedSeconds.toFixed(1);
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = elapsedSeconds.toFixed(1);
+    timerEl.classList.remove('warning');
     currentWord = '';
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
@@ -293,8 +326,10 @@ function resetData() {
     history = [];
     activeTeamIndex = 0;
     const theme = currentTheme;
+    const limit = roundLimit;
     localStorage.clear();
     currentTheme = theme;
+    roundLimit = limit;
     renderConfig();
     renderScoreboard();
     updatePlayerSelect();

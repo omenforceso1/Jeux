@@ -14,6 +14,14 @@
     --timer-bg: #fff;
     --input-border: #ccc;
     --text-light: #fff;
+    --team1: #6366f1;
+    --team2: #f59e0b;
+    --team3: #10b981;
+    --team4: #ec4899;
+    --team5: #f472b6;
+    --team6: #fbbf24;
+    --team7: #3b82f6;
+    --team8: #a855f7;
 }
 
 :root.dark {
@@ -31,6 +39,14 @@
     --timer-bg: #1e293b;
     --input-border: #475569;
     --text-light: #e2e8f0;
+    --team1: #a78bfa;
+    --team2: #fbbf24;
+    --team3: #34d399;
+    --team4: #f472b6;
+    --team5: #f9a8d4;
+    --team6: #fcd34d;
+    --team7: #60a5fa;
+    --team8: #c084fc;
 }
 
 body {
@@ -47,20 +63,37 @@ body {
     justify-content: center;
 }
 
+h1, h2, h3 {
+    font-family: "Fredoka", "Poppins", "Montserrat", sans-serif;
+}
+
 #theme-toggle {
     position: fixed;
     top: 10px;
     right: 10px;
-    background: none;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
     border: none;
-    font-size: 1.5em;
+    border-radius: 50%;
+    font-size: 1.2em;
     cursor: pointer;
-    color: var(--secondary);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background 0.3s ease;
     z-index: 1000;
+}
+#theme-toggle:hover {
+    transform: rotate(20deg);
+    background: var(--accent);
 }
 
 body.dark #theme-toggle {
-    color: var(--accent-light);
+    color: var(--text-light);
+    background: var(--primary);
 }
 
 .container {
@@ -71,6 +104,7 @@ body.dark #theme-toggle {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     max-width: 700px;
     width: 100%;
+    animation: fadeIn 0.5s ease;
 }
 .config-team {
     background: rgba(255, 255, 255, 0.6);
@@ -122,11 +156,13 @@ h1 {
     margin-bottom: 20px;
     gap: 10px;
     backdrop-filter: blur(4px);
+    animation: fadeIn 0.5s ease;
 }
 
 .team {
     flex: 1;
     background: linear-gradient(to bottom right, var(--secondary), var(--team-end));
+    animation: fadeIn 0.4s ease;
     color: var(--text-light);
     padding: 20px 15px;
     border-radius: 12px;
@@ -140,6 +176,15 @@ h1 {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     background: linear-gradient(to bottom right, var(--secondary), var(--team-hover-end));
 }
+
+.team:nth-child(1) { background: linear-gradient(to bottom right, var(--team1), var(--team-end)); }
+.team:nth-child(2) { background: linear-gradient(to bottom right, var(--team2), var(--team-end)); }
+.team:nth-child(3) { background: linear-gradient(to bottom right, var(--team3), var(--team-end)); }
+.team:nth-child(4) { background: linear-gradient(to bottom right, var(--team4), var(--team-end)); }
+.team:nth-child(5) { background: linear-gradient(to bottom right, var(--team5), var(--team-end)); }
+.team:nth-child(6) { background: linear-gradient(to bottom right, var(--team6), var(--team-end)); }
+.team:nth-child(7) { background: linear-gradient(to bottom right, var(--team7), var(--team-end)); }
+.team:nth-child(8) { background: linear-gradient(to bottom right, var(--team8), var(--team-end)); }
 .team .players {
     margin-top: 10px;
     font-size: 0.9em;
@@ -294,6 +339,17 @@ select {
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

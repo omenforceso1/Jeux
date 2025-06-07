@@ -287,6 +287,22 @@ function resetScores() {
     updatePlayerSelect();
 }
 
+function resetData() {
+    teams = [];
+    players = {};
+    history = [];
+    activeTeamIndex = 0;
+    const theme = currentTheme;
+    localStorage.clear();
+    currentTheme = theme;
+    renderConfig();
+    renderScoreboard();
+    updatePlayerSelect();
+    resetGameUI();
+    applyTheme();
+    saveState();
+}
+
 // configuration events
 
 
@@ -342,6 +358,11 @@ document.getElementById('change-word').addEventListener('click', changeWord);
 document.getElementById('word-found').addEventListener('click', endRound);
 
 document.getElementById('reset-scores').addEventListener('click', resetScores);
+
+const resetConfigBtn = document.getElementById('reset-data-config');
+if (resetConfigBtn) resetConfigBtn.addEventListener('click', resetData);
+const resetGameBtn = document.getElementById('reset-data-game');
+if (resetGameBtn) resetGameBtn.addEventListener('click', resetData);
 
 document.getElementById('menu-btn').addEventListener('click', () => {
     if (teams.length) {
@@ -511,6 +532,14 @@ const rulesGameBtn = document.getElementById('show-rules-game');
 if (rulesGameBtn) rulesGameBtn.addEventListener('click', () => showRules('game'));
 
 document.getElementById('close-rules').addEventListener('click', closeRules);
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        if (document.getElementById('history-modal').style.display === 'flex') closeHistory();
+        if (document.getElementById('stats-modal').style.display === 'flex') closeStats();
+        if (document.getElementById('rules-modal').style.display === 'flex') closeRules();
+    }
+});
 
 document.getElementById('theme-toggle').addEventListener('click', () => {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';

@@ -24,6 +24,8 @@
             </select>
             <label for="round-duration">Durée d'une manche (s) :</label>
             <input id="round-duration" type="number" min="10" max="600" value="60">
+            <label for="category-select">Catégorie :</label>
+            <select id="category-select"></select>
             <button id="generate-teams">Créer les équipes</button>
         </div>
         <div id="teams-config"></div>
@@ -104,7 +106,6 @@
                 <button id="close-rules">Fermer</button>
             </div>
         </div>
-    <script src="words.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

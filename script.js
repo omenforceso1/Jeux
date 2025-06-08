@@ -1,5 +1,8 @@
-const defaultWords = typeof window !== 'undefined' && Array.isArray(window.wordList) && window.wordList.length
-  ? window.wordList
+import { loadState, saveState, clearState } from './storage.js';
+import { wordList, wordCategories } from './words.js';
+
+const defaultWords = wordList.length
+  ? wordList
   : [
       'Chat', 'Chocolat', 'Avion', 'Pyramide', 'Pirate',
       'Bateau', 'Arc-en-ciel', 'Licorne', 'Robot', 'Montagne'
@@ -16,48 +19,17 @@ let currentWord = '';
 let currentTheme = 'light';
 let roundLimit = 60;
 let isPaused = false;
+let selectedCategory = 'all';
+
+function persist() {
+    saveState({ teams, players, history, activeTeamIndex, currentTheme, roundLimit, selectedCategory });
+}
 
 function createPlayer(name) {
     return { name, totalScore: 0, gamesPlayed: 0, createdAt: new Date().toISOString() };
 }
 
 
-function loadState() {
-    const data = localStorage.getItem('teams');
-    if (data) {
-        teams = JSON.parse(data);
-    }
-    const pData = localStorage.getItem('players');
-    if (pData) {
-        players = JSON.parse(pData);
-        Object.values(players).forEach(p => { if (!p.createdAt) p.createdAt = new Date().toISOString(); });
-    }
-    const hData = localStorage.getItem('history');
-    if (hData) {
-        history = JSON.parse(hData);
-    }
-    const active = parseInt(localStorage.getItem('activeTeamIndex'), 10);
-    if (!isNaN(active)) {
-        activeTeamIndex = active;
-    }
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-        currentTheme = theme;
-    }
-    const limit = parseInt(localStorage.getItem('roundLimit'), 10);
-    if (!isNaN(limit)) {
-        roundLimit = limit;
-    }
-}
-
-function saveState() {
-    localStorage.setItem('teams', JSON.stringify(teams));
-    localStorage.setItem('players', JSON.stringify(players));
-    localStorage.setItem('history', JSON.stringify(history));
-    localStorage.setItem('activeTeamIndex', activeTeamIndex);
-    localStorage.setItem('theme', currentTheme);
-    localStorage.setItem('roundLimit', roundLimit);
-}
 
 function applyTheme() {
     const dark = currentTheme === 'dark';
@@ -80,7 +52,7 @@ function renderConfig() {
             const v = parseInt(e.target.value, 10);
             if (!isNaN(v) && v > 0) {
                 roundLimit = v;
-                saveState();
+                persist();
             }
         };
     }
@@ -98,6 +70,26 @@ function renderConfig() {
         option.value = name;
         datalist.appendChild(option);
     });
+
+    const categorySelect = document.getElementById('category-select');
+    if (categorySelect) {
+        categorySelect.innerHTML = '';
+        const allOpt = document.createElement('option');
+        allOpt.value = 'all';
+        allOpt.textContent = 'Toutes';
+        categorySelect.appendChild(allOpt);
+        Object.keys(wordCategories).forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            categorySelect.appendChild(opt);
+        });
+        categorySelect.value = selectedCategory;
+        categorySelect.onchange = () => {
+            selectedCategory = categorySelect.value;
+            persist();
+        };
+    }
 
     teams.forEach((team, tIdx) => {
         const div = document.createElement('div');
@@ -192,8 +184,13 @@ function runTimer() {
     timer = requestAnimationFrame(runTimer);
 }
 
+function getWordPool() {
+    return selectedCategory === 'all' ? defaultWords : (wordCategories[selectedCategory] || defaultWords);
+}
+
 function startRound() {
-    currentWord = defaultWords[Math.floor(Math.random() * defaultWords.length)];
+    const pool = getWordPool();
+    currentWord = pool[Math.floor(Math.random() * pool.length)];
     const wordDisplay = document.getElementById('word-display');
     wordDisplay.textContent = currentWord;
     wordDisplay.classList.add('hidden');
@@ -222,7 +219,8 @@ function startRound() {
 }
 
 function changeWord() {
-    currentWord = defaultWords[Math.floor(Math.random() * defaultWords.length)];
+    const pool = getWordPool();
+    currentWord = pool[Math.floor(Math.random() * pool.length)];
     const wordDisplay = document.getElementById('word-display');
     const hidden = wordDisplay.classList.contains('hidden');
     wordDisplay.textContent = currentWord;
@@ -273,7 +271,7 @@ function endRound() {
     }
 
     activeTeamIndex = (activeTeamIndex + 1) % teams.length;
-    saveState();
+    persist();
     renderScoreboard();
     updatePlayerSelect();
 
@@ -315,7 +313,7 @@ function resetScores() {
         team.players.forEach(p => p.score = 0);
     });
     activeTeamIndex = 0;
-    saveState();
+    persist();
     renderScoreboard();
     updatePlayerSelect();
 }
@@ -327,15 +325,16 @@ function resetData() {
     activeTeamIndex = 0;
     const theme = currentTheme;
     const limit = roundLimit;
-    localStorage.clear();
+    clearState();
     currentTheme = theme;
     roundLimit = limit;
+    selectedCategory = 'all';
     renderConfig();
     renderScoreboard();
     updatePlayerSelect();
     resetGameUI();
     applyTheme();
-    saveState();
+    persist();
 }
 
 // configuration events
@@ -346,7 +345,7 @@ document.getElementById('generate-teams').addEventListener('click', () => {
     if (isNaN(count) || count < 1) return;
     teams = Array.from({ length: count }, (_, i) => ({ name: `Équipe ${i + 1}`, score: 0, players: [] }));
     renderConfig();
-    saveState();
+    persist();
 });
 
 document.getElementById('start-game').addEventListener('click', () => {
@@ -376,7 +375,7 @@ document.getElementById('start-game').addEventListener('click', () => {
             }
         });
     });
-    saveState();
+    persist();
     renderScoreboard();
     updatePlayerSelect();
 });
@@ -405,7 +404,7 @@ document.getElementById('menu-btn').addEventListener('click', () => {
     }
     teams = [];
     activeTeamIndex = 0;
-    saveState();
+    persist();
     renderConfig();
     resetGameUI();
     document.getElementById('game-container').style.display = 'none';
@@ -457,7 +456,7 @@ document.getElementById('close-history').addEventListener('click', closeHistory)
 
 document.getElementById('clear-history').addEventListener('click', () => {
     history = [];
-    saveState();
+    persist();
     renderHistory();
 });
 
@@ -480,7 +479,7 @@ function handleImportHistory(event) {
             const data = JSON.parse(reader.result);
             if (Array.isArray(data)) {
                 history = data;
-                saveState();
+                persist();
                 renderHistory();
             } else {
                 alert('Fichier invalide');
@@ -545,7 +544,7 @@ document.getElementById('close-stats').addEventListener('click', closeStats);
 
 document.getElementById('clear-stats').addEventListener('click', () => {
     players = {};
-    saveState();
+    persist();
     renderStats();
 });
 
@@ -579,12 +578,25 @@ document.addEventListener('keydown', e => {
 document.getElementById('theme-toggle').addEventListener('click', () => {
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     applyTheme();
-    saveState();
+    persist();
 });
 
-loadState();
-applyTheme();
-renderConfig();
-resetGameUI();
+function init() {
+    const state = loadState();
+    teams = state.teams;
+    players = state.players;
+    history = state.history;
+    activeTeamIndex = state.activeTeamIndex;
+    currentTheme = state.currentTheme;
+    roundLimit = state.roundLimit;
+    selectedCategory = state.selectedCategory || 'all';
+    applyTheme();
+    renderConfig();
+    renderScoreboard();
+    updatePlayerSelect();
+    resetGameUI();
+}
+
+init();
 
 document.getElementById('game-container').style.display = 'none';

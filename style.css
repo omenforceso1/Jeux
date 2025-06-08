@@ -1,15 +1,16 @@
 :root {
-    --font-base: 16px;
+    --font-base: 17px;
     --primary: #6366f1;
-    --secondary: #334155;
+    --secondary: #1f2937;
     --accent: #ef4444;
+    --success: #10b981;
     --bg-start: #e0e7ff;
     --bg-end: #f0f9ff;
     --accent-light: #fecaca;
     --container-bg1: rgba(255, 255, 255, 0.85);
     --container-bg2: rgba(255, 255, 255, 0.65);
-    --team-end: #1e293b;
-    --team-hover-end: #0f172a;
+    --team-end: #0f172a;
+    --team-hover-end: #0a0f1a;
     --button-secondary: #4338ca;
     --timer-bg: #fff;
     --input-border: #ccc;
@@ -30,15 +31,16 @@
 
 :root.dark {
     --primary: #8b5cf6;
-    --secondary: #e2e8f0;
+    --secondary: #f3f4f6;
     --accent: #f87171;
+    --success: #34d399;
     --bg-start: #0f172a;
     --bg-end: #1e293b;
     --accent-light: #fca5a5;
     --container-bg1: rgba(30, 41, 59, 0.85);
     --container-bg2: rgba(17, 24, 39, 0.65);
-    --team-end: #475569;
-    --team-hover-end: #334155;
+    --team-end: #1f2937;
+    --team-hover-end: #111827;
     --button-secondary: #4338ca;
     --timer-bg: #1e293b;
     --input-border: #475569;
@@ -156,9 +158,9 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     background: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 24px;
     margin-bottom: 20px;
-    gap: 15px;
+    gap: 20px;
     backdrop-filter: blur(6px);
     animation: fadeIn 0.5s ease;
 }
@@ -169,7 +171,7 @@ h1 {
     animation: fadeIn 0.4s ease;
     color: var(--text-light);
     padding: 20px 15px;
-    border-radius: 16px;
+    border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(4px);
@@ -231,7 +233,7 @@ h1 {
 }
 
 #word-display {
-    font-size: 2em;
+    font-size: 2.5em;
     margin: 20px 0;
     color: var(--primary);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -329,6 +331,16 @@ button:hover:not(:disabled) {
     background: var(--accent);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
+}
+
+#start,
+#word-found {
+    background: linear-gradient(to bottom, var(--success), var(--button-secondary));
+}
+
+#start:hover:not(:disabled),
+#word-found:hover:not(:disabled) {
+    background: var(--success);
 }
 
 input[type="number"],

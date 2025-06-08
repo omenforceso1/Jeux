@@ -33,11 +33,14 @@ function createPlayer(name) {
 
 function applyTheme() {
     const dark = currentTheme === 'dark';
+    const contrast = currentTheme === 'contrast';
     document.body.classList.toggle('dark', dark);
     document.documentElement.classList.toggle('dark', dark);
+    document.body.classList.toggle('contrast', contrast);
+    document.documentElement.classList.toggle('contrast', contrast);
     const btn = document.getElementById('theme-toggle');
     if (btn) {
-        btn.textContent = dark ? '☀️' : '🌙';
+        btn.textContent = currentTheme === 'light' ? '🌙' : currentTheme === 'dark' ? '🔳' : '☀️';
     }
 }
 
@@ -442,7 +445,7 @@ function showHistory(context) {
     const modal = document.getElementById('history-modal');
     const content = document.getElementById('history-content');
     const title = document.getElementById('history-title');
-    modal.style.display = 'flex';
+    modal.classList.add('open');
     content.classList.toggle('game', context === 'game');
     content.classList.toggle('menu', context !== 'game');
     if (title) {
@@ -451,7 +454,7 @@ function showHistory(context) {
 }
 
 function closeHistory() {
-    document.getElementById('history-modal').style.display = 'none';
+    document.getElementById('history-modal').classList.remove('open');
 }
 
 const historyConfigBtn = document.getElementById('show-history-config');
@@ -530,7 +533,7 @@ function showStats(context) {
     const modal = document.getElementById('stats-modal');
     const content = document.getElementById('stats-content');
     const title = document.getElementById('stats-title');
-    modal.style.display = 'flex';
+    modal.classList.add('open');
     content.classList.toggle('game', context === 'game');
     content.classList.toggle('menu', context !== 'game');
     if (title) {
@@ -539,7 +542,7 @@ function showStats(context) {
 }
 
 function closeStats() {
-    document.getElementById('stats-modal').style.display = 'none';
+    document.getElementById('stats-modal').classList.remove('open');
 }
 
 const statsConfigBtn = document.getElementById('show-stats-config');
@@ -558,13 +561,13 @@ document.getElementById('clear-stats').addEventListener('click', () => {
 function showRules(context) {
     const modal = document.getElementById('rules-modal');
     const content = document.getElementById('rules-content');
-    modal.style.display = 'flex';
+    modal.classList.add('open');
     content.classList.toggle('game', context === 'game');
     content.classList.toggle('menu', context !== 'game');
 }
 
 function closeRules() {
-    document.getElementById('rules-modal').style.display = 'none';
+    document.getElementById('rules-modal').classList.remove('open');
 }
 
 const rulesConfigBtn = document.getElementById('show-rules-config');
@@ -576,14 +579,14 @@ document.getElementById('close-rules').addEventListener('click', closeRules);
 
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-        if (document.getElementById('history-modal').style.display === 'flex') closeHistory();
-        if (document.getElementById('stats-modal').style.display === 'flex') closeStats();
-        if (document.getElementById('rules-modal').style.display === 'flex') closeRules();
+        if (document.getElementById('history-modal').classList.contains('open')) closeHistory();
+        if (document.getElementById('stats-modal').classList.contains('open')) closeStats();
+        if (document.getElementById('rules-modal').classList.contains('open')) closeRules();
     }
 });
 
 document.getElementById('theme-toggle').addEventListener('click', () => {
-    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    currentTheme = currentTheme === 'light' ? 'dark' : currentTheme === 'dark' ? 'contrast' : 'light';
     applyTheme();
     persist();
 });

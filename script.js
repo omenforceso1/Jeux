@@ -305,6 +305,8 @@ function resetGameUI() {
         pauseBtn.textContent = 'Pause';
     }
     isPaused = false;
+    const sec = document.getElementById('secondary-controls');
+    if (sec) sec.classList.add('hidden');
 }
 
 function resetScores() {
@@ -392,6 +394,11 @@ document.getElementById('change-word').addEventListener('click', changeWord);
 document.getElementById('word-found').addEventListener('click', endRound);
 
 document.getElementById('reset-scores').addEventListener('click', resetScores);
+
+document.getElementById('toggle-secondary').addEventListener('click', () => {
+    const sec = document.getElementById('secondary-controls');
+    if (sec) sec.classList.toggle('hidden');
+});
 
 const resetConfigBtn = document.getElementById('reset-data-config');
 if (resetConfigBtn) resetConfigBtn.addEventListener('click', resetData);

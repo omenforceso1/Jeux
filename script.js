@@ -276,7 +276,7 @@ function endRound() {
     updatePlayerSelect();
 
     const wordDisplay = document.getElementById('word-display');
-    wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
+    wordDisplay.textContent = 'Cliquez sur "Nouvelle manche" pour commencer';
     wordDisplay.classList.remove('flash');
     wordDisplay.classList.remove('hidden');
     document.getElementById('toggle-word').style.display = 'none';
@@ -292,7 +292,7 @@ function resetGameUI() {
     timerEl.classList.remove('warning');
     currentWord = '';
     const wordDisplay = document.getElementById('word-display');
-    wordDisplay.textContent = 'Appuyez sur "Nouvelle manche"';
+    wordDisplay.textContent = 'Cliquez sur "Nouvelle manche" pour commencer';
     wordDisplay.classList.remove('flash');
     wordDisplay.classList.remove('hidden');
     document.getElementById('toggle-word').style.display = 'none';

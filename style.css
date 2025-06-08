@@ -44,7 +44,7 @@
     --button-secondary: #4338ca;
     --timer-bg: #1e293b;
     --input-border: #475569;
-    --text-light: #e2e8f0;
+    --text-light: #ffffff;
     --team1: #a78bfa;
     --team2: #fbbf24;
     --team3: #34d399;
@@ -201,7 +201,7 @@ h1 {
 }
 .team .name {
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 
@@ -221,7 +221,7 @@ h1 {
 }
 
 #active-team {
-    margin-bottom: 20px;
+    margin: 10px 0 20px;
     font-weight: bold;
     color: var(--secondary);
 }
@@ -315,6 +315,7 @@ button {
     margin: 5px;
     border: none;
     border-radius: 6px;
+    min-height: 44px;
     background: linear-gradient(to bottom, var(--primary), var(--button-secondary));
     color: var(--text-light);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
@@ -423,6 +424,7 @@ select {
         font-size: 0.9em;
         margin: 3px 0;
         width: 100%;
+        min-height: 40px;
     }
 
     #toggle-word {

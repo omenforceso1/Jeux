@@ -6,6 +6,7 @@
     <title>Jeu de la Complicité</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <button id="theme-toggle" title="Changer de thème" aria-label="Changer de thème">🌙</button>
@@ -108,5 +109,12 @@
             </div>
         </div>
     <script type="module" src="script.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('service-worker.js');
+        });
+      }
+    </script>
 </body>
 </html>

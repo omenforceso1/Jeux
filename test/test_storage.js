@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { loadState, saveState, clearState } from '../storage.js';
+import { loadState, saveState, clearState } from '../src/storage.js';
 
 // simple localStorage mock
 global.localStorage = (() => {

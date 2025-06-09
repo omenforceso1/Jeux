@@ -18,6 +18,10 @@ Aucune installation n’est nécessaire. Pour jouer :
 Le jeu s’affiche alors directement dans le navigateur et peut être utilisé hors connexion.
 
 ## Fichiers du projet
+- `src/config.js` : paramètres globaux et liste des mots.
+- `src/storage.js` : accès unifié à `localStorage`.
+- `src/gameLogic.js` : gestion des manches et du score.
+- `src/ui.js` : mise à jour du DOM et thèmes.
 - **index.html** : structure de la page et des éléments du jeu (scores, boutons, etc.).
 - **style.css** : mise en forme de l’interface (positionnement, couleurs et typographie).
 - **script.js** : logique du jeu : tirage des mots aléatoires, gestion du minuteur, des scores et de l’équipe active.
@@ -56,3 +60,14 @@ Les fenêtres d'historique et de statistiques adoptent désormais un style diff�
 La feuille de style a été retravaillée afin d'offrir une interface plus claire et plus agréable. Les équipes sont mieux mises en valeur sur le tableau de score et le bouton permettant de changer de thème dispose d'une étiquette d'accessibilité.
 Un bouton **Règles** a aussi été ajouté pour rappeler rapidement le principe du jeu.
 Les cartes des équipes et l'affichage du mot bénéficient désormais d'un effet « verre dépoli » pour un rendu plus moderne.
+
+## Construction et installation
+
+Le projet utilise [Vite](https://vitejs.dev/) pour le bundling.
+
+```bash
+npm install
+npm run build
+```
+
+Le dossier `dist` généré peut ensuite être déployé sur n'importe quel serveur statique ou ouvert directement dans le navigateur. Une fois chargé, utilisez l'option "Ajouter à l'écran d'accueil" pour installer la PWA.

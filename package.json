@@ -1,6 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "test": "node test/test_storage.js"
+    "test": "node test/test_storage.js",
+    "dev": "vite",
+    "build": "vite build"
   }
 }

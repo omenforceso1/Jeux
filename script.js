@@ -1,5 +1,7 @@
-import { loadState, saveState, clearState } from './storage.js';
-import { wordList, wordCategories } from './words.js';
+import { loadState, saveState, clearState } from './src/storage.js';
+import { config, wordList, wordCategories } from './src/config.js';
+
+let state = loadState();
 
 const defaultWords = wordList.length
   ? wordList
@@ -8,21 +10,28 @@ const defaultWords = wordList.length
       'Bateau', 'Arc-en-ciel', 'Licorne', 'Robot', 'Montagne'
     ];
 
-let teams = [];
-let players = {};
-let history = [];
-let activeTeamIndex = 0;
+let teams = state.teams || [];
+let players = state.players || {};
+let history = state.history || [];
+let activeTeamIndex = state.activeTeamIndex || 0;
 let timer;
 let startTime = 0;
 let elapsedSeconds = 0;
 let currentWord = '';
-let currentTheme = 'light';
-let roundLimit = 60;
+let currentTheme = state.currentTheme || config.currentTheme;
+let roundLimit = state.roundLimit || config.roundLimit;
 let isPaused = false;
-let selectedCategory = 'all';
+let selectedCategory = state.selectedCategory || config.selectedCategory;
 
 function persist() {
-    saveState({ teams, players, history, activeTeamIndex, currentTheme, roundLimit, selectedCategory });
+    state.currentTheme = currentTheme;
+    state.roundLimit = roundLimit;
+    state.selectedCategory = selectedCategory;
+    state.teams = teams;
+    state.players = players;
+    state.history = history;
+    state.activeTeamIndex = activeTeamIndex;
+    saveState(state);
 }
 
 function createPlayer(name) {
@@ -592,14 +601,6 @@ document.getElementById('theme-toggle').addEventListener('click', () => {
 });
 
 function init() {
-    const state = loadState();
-    teams = state.teams;
-    players = state.players;
-    history = state.history;
-    activeTeamIndex = state.activeTeamIndex;
-    currentTheme = state.currentTheme;
-    roundLimit = state.roundLimit;
-    selectedCategory = state.selectedCategory || 'all';
     applyTheme();
     renderConfig();
     renderScoreboard();
